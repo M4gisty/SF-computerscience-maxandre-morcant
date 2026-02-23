@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lumina Film — Recommandation intelligente de films</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+
+<body>
+
+  <!-- ✅ SPLASH / PAGE D'ACCUEIL -->
+  <div id="splash" class="splash" role="dialog" aria-modal="true" aria-label="Accueil Lumina Film">
+    <div class="splash__card">
+      <!-- ✅ Ton logo -->
+      <img class="splash__logoImg" src="assets/lumina-logo.png" alt="Lumina Film logo" />
+
+      <div class="splash__brand">
+        <div class="splash__name">Lumina Film</div>
+        <div class="splash__tag" data-i18n="splash.tag">Recommandations personnalisées</div>
+      </div>
+
+      <p class="splash__text muted" data-i18n="splash.text">
+        Découvre des films similaires à ceux que tu aimes, et aide l’algorithme avec tes retours.
+      </p>
+
+      <div class="splash__actions">
+        <button id="enterBtn" class="btn btn--primary" type="button" data-i18n="splash.enter">Entrer</button>
+      </div>
+
+      <div class="splash__hint muted small" data-i18n="splash.hint">
+        Projet CSC 317 • Prototype UI
+      </div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="#">
+        <span class="brand__icon">🎬</span>
+        <span class="brand__text">
+          <span class="brand__name">Lumina Film</span>
+          <span class="brand__tag" data-i18n="brand.tag">Prototype</span>
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav__link active" href="#home" data-i18n="nav.home">Accueil</a>
+        <a class="nav__link" href="#demo" data-i18n="nav.demo">Démo</a>
+        <a class="nav__link" href="#about" data-i18n="nav.about">À propos</a>
+      </nav>
+
+      <!-- ✅ Bouton langue -->
+      <button class="btn btn--ghost" id="langBtn" type="button" aria-label="Changer la langue">
+        FR
+      </button>
+
+      <button class="nav__toggle" aria-label="Ouvrir le menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="home" class="section hero">
+      <div class="container hero__grid">
+        <div class="hero__left">
+          <p class="kicker" data-i18n="hero.kicker">Recommandations personnalisées</p>
+          <h1 data-i18n="hero.title">Découvre des films similaires à ceux que tu aimes.</h1>
+          <p class="lead" data-i18n="hero.lead">
+            Tout commence par une simple recherche...
+          </p>
+
+          <div class="cta">
+            <a class="btn btn--primary" href="#demo" data-i18n="hero.cta.demo">Voir l’interface</a>
+            <a class="btn btn--ghost" href="#about" data-i18n="hero.cta.about">Comprendre le projet</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat__title" data-i18n="stats.interactions.title">Interactions</div>
+              <div class="stat__value" data-i18n="stats.interactions.value">Recherche • Notes • Commentaires</div>
+            </div>
+            <div class="stat">
+              <div class="stat__title" data-i18n="stats.data.title">Données</div>
+              <div class="stat__value" data-i18n="stats.data.value">Films • Utilisateurs • Historique</div>
+            </div>
+            <div class="stat">
+              <div class="stat__title" data-i18n="stats.goal.title">But</div>
+              <div class="stat__value" data-i18n="stats.goal.value">Découverte + pertinence</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__right">
+          <div class="card card--glass">
+            <div class="card__header">
+              <div>
+                <div class="card__title" data-i18n="example.title">Exemple</div>
+                <div class="card__subtitle" data-i18n="example.subtitle">Aperçu d’une recommandation</div>
+              </div>
+              <span class="badge">88%</span>
+            </div>
+
+            <div class="card__body">
+              <div class="pill">
+                <span data-i18n="example.liked">Film aimé :</span> <strong>Inception</strong>
+              </div>
+
+              <div class="movie">
+                <div class="movie__meta">
+                  <div class="movie__title">Interstellar</div>
+                  <div class="movie__sub" data-i18n="example.movieSub">Science-fiction • Thriller • Nolan</div>
+                </div>
+                <button class="iconBtn" title="Ajouter aux favoris" data-i18n-titleattr="example.favTitle">☆</button>
+              </div>
+
+              <div class="divider"></div>
+
+              <div class="muted small" data-i18n="example.text">
+                Ensuite l’utilisateur peut noter le film, évaluer la recommandation et
+                laisser un commentaire.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO UI -->
+    <section id="demo" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2 data-i18n="demo.title">Démo (interface)</h2>
+          <p class="muted" data-i18n="demo.subtitle">
+            Pour l’instant, c’est un exemple, rien n'est réellement fonctionnel
+          </p>
+        </div>
+
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card__header">
+              <div>
+                <div class="card__title" data-i18n="search.title">Recherche</div>
+                <div class="card__subtitle" data-i18n="search.subtitle">Titre + filtres</div>
+              </div>
+            </div>
+
+            <div class="card__body">
+              <div class="form">
+                <div class="field">
+                  <label for="q" data-i18n="form.liked.label">Film que tu as aimé</label>
+                  <input id="q" data-i18n-placeholder="form.liked.ph" placeholder="Ex : Inception, The Notebook, The Dark Knight..." />
+                </div>
+
+                <div class="grid grid--2">
+                  <div class="field">
+                    <label for="genre" data-i18n="form.genre.label">Genre</label>
+                    <select id="genre">
+                      <option value="" data-i18n="form.genre.opt0">(optionnel)</option>
+                      <option>Action</option>
+                      <option>Romance</option>
+                      <option>Drama</option>
+                      <option>Science Fiction</option>
+                      <option>Thriller</option>
+                      <option>Superhero</option>
+                    </select>
+                  </div>
+
+                  <div class="field">
+                    <label for="mood" data-i18n="form.keyword.label">Keyword</label>
+                    <input id="mood" data-i18n-placeholder="form.keyword.ph" placeholder="Ex : emotional, horror, superhero..." />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="person" data-i18n="form.person.label">Acteur / Réalisateur</label>
+                  <input id="person" data-i18n-placeholder="form.person.ph" placeholder="Ex : Nolan, DiCaprio..." />
+                </div>
+
+                <div class="row">
+                  <button id="searchBtn" class="btn btn--primary" data-i18n="form.search">Rechercher</button>
+                  <button id="resetBtn" class="btn btn--ghost" data-i18n="form.reset">Reset</button>
+                  <span id="status" class="muted small"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <div>
+                <div class="card__title" data-i18n="results.title">Résultats</div>
+                <div class="card__subtitle" data-i18n="results.subtitle">Cartes + score de similarité</div>
+              </div>
+            </div>
+
+            <div class="card__body">
+              <div id="results" class="results">
+                <div class="empty">
+                  <div class="empty__icon">🔎</div>
+                  <div class="empty__title" data-i18n="results.emptyTitle">Lance une recherche</div>
+                  <div class="muted small" data-i18n="results.emptyText">Tu verras ici des films recommandés.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section__head">
+          <h2 data-i18n="about.title">À propos</h2>
+          <p class="muted" data-i18n="about.subtitle">
+            Le coeur du projet, et ses avancées prévues
+          </p>
+        </div>
+
+        <div class="grid grid--3">
+          <div class="card">
+            <div class="card__header">
+              <div class="card__title" data-i18n="about.data.title">Données</div>
+            </div>
+            <div class="card__body">
+              <ul class="list">
+                <li data-i18n="about.data.li1">Films (genres, keywords, cast/crew)</li>
+                <li data-i18n="about.data.li2">Utilisateurs (profil + préférences)</li>
+                <li data-i18n="about.data.li3">Notes & commentaires</li>
+                <li data-i18n="about.data.li4">Historique de recommandations</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <div class="card__title" data-i18n="about.algo.title">Algorithme</div>
+            </div>
+            <div class="card__body">
+              <ul class="list">
+                <li data-i18n="about.algo.li1">Genre (pondération forte)</li>
+                <li data-i18n="about.algo.li2">Keywords</li>
+                <li data-i18n="about.algo.li3">Acteurs / réalisateur</li>
+                <li data-i18n="about.algo.li4">Ajustement par feedback</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__header">
+              <div class="card__title" data-i18n="about.next.title">Next steps</div>
+            </div>
+            <div class="card__body">
+              <ul class="list">
+                <li data-i18n="about.next.li1">Brancher une API de films</li>
+                <li data-i18n="about.next.li2">Ajouter un backend + DB</li>
+                <li data-i18n="about.next.li3">Authentification (optionnel)</li>
+                <li data-i18n="about.next.li4">Améliorer le scoring</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="muted small">©<span data-i18n="footer.brand">Lumina Film</span> — CSC 317</span>
+      <span class="muted small" data-i18n="footer.right">French creator</span>
+    </div>
+  </footer>
+</body>
+</html>
