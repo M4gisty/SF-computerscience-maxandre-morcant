@@ -1,75 +1,33 @@
-// ==========================
-// Mock results (demo UI)
-// ==========================
-const mockResults = [
-  { title: "Interstellar", metaFR: "Science-fiction • Thriller • Nolan", metaEN: "Sci-Fi • Thriller • Nolan", score: 88 },
-  { title: "The Prestige", metaFR: "Thriller • Drame • Nolan", metaEN: "Thriller • Drama • Nolan", score: 81 },
-  { title: "Shutter Island", metaFR: "Thriller • Mystère • Psychologique", metaEN: "Thriller • Mystery • Psychological", score: 76 },
-];
-
+// ========= Helpers =========
 function getLang() {
   return localStorage.getItem("lumina_lang") || "fr";
 }
-
-function renderEmptyResults() {
-  const results = document.getElementById("results");
-  if (!results) return;
-
-  results.innerHTML = `
-    <div class="empty">
-      <div class="empty__icon">🔎</div>
-      <div class="empty__title" data-i18n="results.emptyTitle">Lance une recherche</div>
-      <div class="muted small" data-i18n="results.emptyText">Tu verras ici des films recommandés.</div>
-    </div>
-  `;
-
-  // Re-apply language after injecting HTML
-  applyLang(getLang());
-}
-
-function renderResults(query) {
-  const results = document.getElementById("results");
-  if (!results) return;
-
-  if (!query.trim()) {
-    renderEmptyResults();
-    return;
-  }
-
-  const lang = getLang();
-  results.innerHTML = "";
-
-  mockResults.forEach((m) => {
-    const row = document.createElement("div");
-    row.className = "movie";
-    row.innerHTML = `
-      <div class="movie__meta">
-        <div class="movie__title">${m.title}</div>
-        <div class="movie__sub">${lang === "fr" ? m.metaFR : m.metaEN}</div>
-      </div>
-      <span class="badge">${m.score}%</span>
-    `;
-    results.appendChild(row);
-  });
-}
-
 // ==========================
-// i18n FR/EN (Lumina Film)
+// i18n dictionaries
 // ==========================
 const I18N = {
   fr: {
-    title: "Lumina Film — Recommandation intelligente de films",
+    titleHome: "Lumina Film — Recommandation intelligente de films",
+    titleSearch: "Lumina Film — Recherche",
+    titleAbout: "Lumina Film — À propos / Contact",
+
     "brand.tag": "Prototype",
 
     "nav.home": "Accueil",
-    "nav.demo": "Démo",
-    "nav.about": "À propos",
+    "nav.search": "Recherche",
+    "nav.about": "À propos / Contact",
+    "nav.account": "Compte",
+
+    "splash.tag": "Recommandations personnalisées",
+    "splash.text": "Découvre des films similaires à ceux que tu aimes, et aide l’algorithme avec tes retours.",
+    "splash.enter": "Entrer",
+    "splash.hint": "Projet CSC 317 • Prototype UI",
 
     "hero.kicker": "Recommandations personnalisées",
     "hero.title": "Découvre des films similaires à ceux que tu aimes.",
     "hero.lead": "Tout commence par une simple recherche...",
-    "hero.cta.demo": "Voir l’interface",
-    "hero.cta.about": "Comprendre le projet",
+    "hero.cta.search": "Aller à la recherche",
+    "hero.cta.about": "À propos / Contact",
 
     "stats.interactions.title": "Interactions",
     "stats.interactions.value": "Recherche • Notes • Commentaires",
@@ -85,8 +43,12 @@ const I18N = {
     "example.favTitle": "Ajouter aux favoris",
     "example.text": "Ensuite l’utilisateur peut noter le film, évaluer la recommandation et laisser un commentaire.",
 
-    "demo.title": "Démo (interface)",
-    "demo.subtitle": "Pour l’instant, c’est un exemple, rien n'est réellement fonctionnel",
+    "home.noteTitle": "Prêt à tester ?",
+    "home.noteBody": "Va sur la page Recherche pour voir l’interface et les résultats mock.",
+    "home.noteCta": "Ouvrir Recherche",
+
+    "demo.title": "Recherche",
+    "demo.subtitle": "Recherche fonctionnelle : les résultats viennent maintenant d’une API",
 
     "search.title": "Recherche",
     "search.subtitle": "Titre + filtres",
@@ -128,30 +90,61 @@ const I18N = {
     "about.next.li3": "Authentification (optionnel)",
     "about.next.li4": "Améliorer le scoring",
 
+    "contact.title": "Me contacter",
+    "contact.subtitle": "Envoie un message (UI)",
+    "contact.name": "Nom",
+    "contact.namePh": "Ton nom",
+    "contact.email": "Email",
+    "contact.emailPh": "tonmail@email.com",
+    "contact.msg": "Message",
+    "contact.msgPh": "Ton message...",
+    "contact.send": "Envoyer",
+    "contact.note": "(Pour l’instant, ça ne fait pas d’envoi réel — on pourra le brancher plus tard.)",
+
+    "auth.title": "Connexion / Inscription",
+    "auth.subtitle": "Prototype client-side auth (no backend)",
+    "titleLogin": "Lumina Film — Connexion",
+    "auth.email": "Email",
+    "auth.emailPh": "tonmail@email.com",
+    "auth.name": "Nom",
+    "auth.namePh": "Ton nom",
+    "auth.password": "Mot de passe",
+    "auth.login": "Se connecter",
+    "auth.signup": "S'inscrire",
+    "auth.switchToSignup": "S'inscrire",
+    "auth.switchToLogin": "Déjà inscrit ? Se connecter",
+    "account.title": "Mon compte",
+    "account.subtitle": "Gérer votre profil",
+    "titleAccount": "Lumina Film — Mon compte",
+    "account.logout": "Se déconnecter",
+    "account.save": "Enregistrer",
+
     "footer.brand": "Lumina Film",
     "footer.right": "French creator",
-
-    // Splash
-    "splash.tag": "Recommandations personnalisées",
-    "splash.text": "Découvre des films similaires à ceux que tu aimes, et aide l’algorithme avec tes retours.",
-    "splash.enter": "Entrer",
-    "splash.skip": "Ne plus afficher",
-    "splash.hint": "Projet CSC 317 • Prototype UI",
   },
 
   en: {
-    title: "Lumina Film — Smart movie recommendations",
+    titleHome: "Lumina Film — Smart movie recommendations",
+    titleSearch: "Lumina Film — Search",
+    titleAbout: "Lumina Film — About / Contact",
+
     "brand.tag": "Prototype",
 
     "nav.home": "Home",
-    "nav.demo": "Demo",
-    "nav.about": "About",
+    "nav.search": "Search",
+    "nav.about": "About / Contact",
+    "nav.account": "Account",
+
+    "splash.tag": "Personalized recommendations",
+    "splash.text": "Discover movies similar to the ones you love, and improve the algorithm with your feedback.",
+    "splash.enter": "Enter",
+    "splash.hint": "CSC 317 Project • UI Prototype",
 
     "hero.kicker": "Personalized recommendations",
     "hero.title": "Discover movies similar to the ones you love.",
     "hero.lead": "It all starts with a simple search...",
-    "hero.cta.demo": "See the interface",
-    "hero.cta.about": "Understand the project",
+    "hero.cta.search": "Go to search",
+    "hero.cta.about": "About / Contact",
 
     "stats.interactions.title": "Interactions",
     "stats.interactions.value": "Search • Ratings • Comments",
@@ -167,8 +160,12 @@ const I18N = {
     "example.favTitle": "Add to favorites",
     "example.text": "Then the user can rate the movie, evaluate the recommendation, and leave a comment.",
 
-    "demo.title": "Demo (UI)",
-    "demo.subtitle": "For now, this is a showcase—nothing is fully functional yet.",
+    "home.noteTitle": "Ready to try?",
+    "home.noteBody": "Go to the Search page to see the UI and mock results.",
+    "home.noteCta": "Open Search",
+
+    "demo.title": "Search",
+    "demo.subtitle": "Search is now live; results come from an API.",
 
     "search.title": "Search",
     "search.subtitle": "Title + filters",
@@ -210,147 +207,439 @@ const I18N = {
     "about.next.li3": "Authentication (optional)",
     "about.next.li4": "Improve the scoring",
 
+    "contact.title": "Contact me",
+    "contact.subtitle": "Send a message (UI)",
+    "contact.name": "Name",
+    "contact.namePh": "Your name",
+    "contact.email": "Email",
+    "contact.emailPh": "you@email.com",
+    "contact.msg": "Message",
+    "contact.msgPh": "Your message...",
+    "contact.send": "Send",
+    "contact.note": "(For now, this doesn’t actually send — we can wire it later.)",
+
+    "auth.title": "Sign in / Sign up",
+    "auth.subtitle": "Prototype client-side auth (no backend)",
+    "titleLogin": "Lumina Film — Sign in",
+    "auth.email": "Email",
+    "auth.emailPh": "you@email.com",
+    "auth.name": "Name",
+    "auth.namePh": "Your name",
+    "auth.password": "Password",
+    "auth.login": "Sign in",
+    "auth.signup": "Sign up",
+    "auth.switchToSignup": "Sign up",
+    "auth.switchToLogin": "Already registered? Sign in",
+    "account.title": "My account",
+    "account.subtitle": "Manage your profile",
+    "titleAccount": "Lumina Film — My account",
+    "account.logout": "Sign out",
+    "account.save": "Save",
+
     "footer.brand": "Lumina Film",
     "footer.right": "French creator",
-
-    // Splash
-    "splash.tag": "Personalized recommendations",
-    "splash.text": "Discover movies similar to the ones you love, and improve the algorithm with your feedback.",
-    "splash.enter": "Enter",
-    "splash.skip": "Don't show again",
-    "splash.hint": "CSC 317 Project • UI Prototype",
   }
 };
-
 function applyLang(lang) {
   const dict = I18N[lang] || I18N.fr;
 
-  // Text content
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
     if (dict[key]) el.textContent = dict[key];
   });
 
-  // Placeholders
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
     const key = el.getAttribute("data-i18n-placeholder");
     if (dict[key]) el.setAttribute("placeholder", dict[key]);
   });
 
-  // Title tooltips
   document.querySelectorAll("[data-i18n-titleattr]").forEach(el => {
     const key = el.getAttribute("data-i18n-titleattr");
     if (dict[key]) el.setAttribute("title", dict[key]);
   });
 
-  // Document title
-  if (dict.title) document.title = dict.title;
-
-  // html lang + save
   document.documentElement.lang = lang;
   localStorage.setItem("lumina_lang", lang);
 
-  // Button label
   const langBtn = document.getElementById("langBtn");
   if (langBtn) langBtn.textContent = lang.toUpperCase();
+
+  // Set title depending on page
+  const isHome = document.body.classList.contains("page-home");
+  const isSearch = document.body.classList.contains("page-search");
+  const isAbout = document.body.classList.contains("page-about");
+  const isLogin = document.body.classList.contains("page-login");
+  const isAccount = document.body.classList.contains("page-account");
+
+  if (isHome) document.title = dict.titleHome;
+  else if (isSearch) document.title = dict.titleSearch;
+  else if (isAbout) document.title = dict.titleAbout;
+  else if (isLogin) document.title = dict.titleLogin || dict.titleHome;
+  else if (isAccount) document.title = dict.titleAccount || dict.titleHome;
 }
 
 function toggleLang() {
-  const current = getLang();
-  const next = current === "fr" ? "en" : "fr";
+  const next = getLang() === "fr" ? "en" : "fr";
   applyLang(next);
 
-  // si l'utilisateur est sur la démo, on met à jour aussi les résultats mock
+  // update mock results language if on search page
   const q = document.getElementById("q");
   if (q) renderResults(q.value);
-
-  // re-inject empty translations if empty state is shown
-  const results = document.getElementById("results");
-  if (results && results.querySelector(".empty")) applyLang(next);
 }
 
 // ==========================
-// Splash screen (Accueil)
+// Splash screen (only home)
 // ==========================
 function initSplash() {
+  if (!document.body.classList.contains("page-home")) return;
+
   const splash = document.getElementById("splash");
   const enterBtn = document.getElementById("enterBtn");
+  if (!splash || !enterBtn) return;
 
-  if (!splash) return;
-
-  const disabled = localStorage.getItem("lumina_splash_disabled") === "1";
   const alreadyEntered = sessionStorage.getItem("lumina_entered") === "1";
-
-  if (disabled || alreadyEntered) {
+  if (alreadyEntered) {
     splash.classList.add("splash--hidden");
     return;
   }
 
-  const hideSplash = () => {
+  const hide = () => {
     splash.classList.add("splash--hidden");
     sessionStorage.setItem("lumina_entered", "1");
   };
 
-  //enterBtn?.addEventListener("click", hideSplash);
-  
-
+  enterBtn.addEventListener("click", hide);
   document.addEventListener("keydown", (e) => {
     if (splash.classList.contains("splash--hidden")) return;
-    if (e.key === "Enter") hideSplash();
-    if (e.key === "Escape") hideSplash();
+    if (e.key === "Enter" || e.key === "Escape") hide();
   });
 }
 
 // ==========================
-// Main init
+// Search rendering helpers
+// ==========================
+
+function renderEmptyResults() {
+  const results = document.getElementById("results");
+  if (!results) return;
+
+  results.innerHTML = `
+    <div class="empty">
+      <div class="empty__icon">🔎</div>
+      <div class="empty__title" data-i18n="results.emptyTitle">Lance une recherche</div>
+      <div class="muted small" data-i18n="results.emptyText">Tu verras ici des films recommandés.</div>
+    </div>
+  `;
+
+  applyLang(getLang());
+}
+
+async function renderResults(query) {
+  const results = document.getElementById("results");
+  if (!results) return;
+
+  const genre = document.getElementById("genre")?.value || '';
+  const mood  = document.getElementById("mood")?.value || '';
+  const person = document.getElementById("person")?.value || '';
+
+  if (!query.trim()) {
+    renderEmptyResults();
+    return;
+  }
+
+  results.innerHTML = '<div class="empty">…</div>'; // show loading indicator
+
+  try {
+    const url = `http://localhost:8001/api/search?q=${encodeURIComponent(query)}` +
+                `&genre=${encodeURIComponent(genre)}` +
+                `&mood=${encodeURIComponent(mood)}` +
+                `&person=${encodeURIComponent(person)}` +
+                `&lang=${getLang()}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('search failed');
+    const movies = await res.json();
+
+    if (movies.length === 0) {
+      renderEmptyResults();
+      return;
+    }
+
+    results.innerHTML = '';
+    const lang = getLang();
+
+    movies.forEach(m => {
+      const row = document.createElement("div");
+      row.className = "movie";
+      row.innerHTML = `
+        <div class="movie__meta">
+          <a href="movie.html?id=${m.id}" class="movie__title">${m.title}</a>
+          <div class="movie__sub">${m.overview || ''}</div>
+          <div class="movie__genres">${m.genres ? m.genres.join(', ') : ''}</div>
+        </div>
+        <div class="movie__poster">
+          ${m.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${m.poster_path}" alt="${m.title}">` : ''}
+        </div>
+        <div class="movie__actions">
+          <span class="badge">${m.score ?? ''}%</span>
+          <button class="btn btn--ghost btn--small rateBtn">${lang==='fr' ? 'Noter' : 'Rate'}</button>
+        </div>
+      `;
+      results.appendChild(row);
+    });
+
+    // attach rating handlers as before
+    document.querySelectorAll('.rateBtn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const movieEl = e.target.closest('.movie');
+        const title = movieEl.querySelector('.movie__title').textContent;
+        rateMovie(title);
+      });
+    });
+  } catch (err) {
+    console.error(err);
+    results.innerHTML = '<p class="error">' + (getLang()==='fr' ? 'Erreur de recherche' : 'Search error') + '</p>';
+  }
+}
+
+async function rateMovie(title) {
+  const scoreStr = prompt(getLang() === 'fr' ? 'Donne une note de 1 à 5 (étoiles)' : 'Give a rating 1-5 (stars)');
+  if (!scoreStr) return;
+  const score = parseInt(scoreStr, 10);
+  if (!score || score < 1 || score > 5) { alert(getLang() === 'fr' ? 'Note invalide (1-5)' : 'Invalid rating (1-5)'); return; }
+  const comment = prompt(getLang() === 'fr' ? 'Commentaire (optionnel)' : 'Comment (optional)') || '';
+  try {
+    const res = await fetch('http://localhost:8001/api/ratings', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({movie_title: title, score, comment})});
+    if (!res.ok) {
+      const j = await res.json().catch(()=>({detail:'error'}));
+      alert(j.detail || (getLang()==='fr' ? 'Erreur lors de l\'enregistrement' : 'Save error'));
+      return;
+    }
+    const j = await res.json();
+    const status = document.getElementById('status');
+    if (status) status.textContent = getLang() === 'fr' ? 'Note enregistrée.' : 'Rating saved.';
+    setTimeout(() => { if (status) status.textContent = ''; }, 1800);
+  } catch (err) {
+    alert(getLang() === 'fr' ? 'Erreur réseau' : 'Network error');
+  }
+}
+
+// ==========================
+// Contact UI (about page)
+// ==========================
+function initContact() {
+  const btn = document.getElementById("contactBtn");
+  const status = document.getElementById("contactStatus");
+  if (!btn || !status) return;
+
+  btn.addEventListener("click", () => {
+    status.textContent = getLang() === "fr" ? "Message enregistré (UI)." : "Message saved (UI).";
+    setTimeout(() => (status.textContent = ""), 1800);
+  });
+}
+
+// ==========================
+// Simple client-side auth (mock)
+// ==========================
+
+function _getUsers() {
+  try { return JSON.parse(localStorage.getItem('lumina_users') || '[]'); }
+  catch (e) { return []; }
+}
+
+function _saveUsers(users) {
+  localStorage.setItem('lumina_users', JSON.stringify(users));
+}
+
+function _currentUser() {
+  try { return JSON.parse(localStorage.getItem('lumina_user') || 'null'); }
+  catch (e) { return null; }
+}
+
+function _setCurrentUser(u) {
+  if (!u) localStorage.removeItem('lumina_user');
+  else localStorage.setItem('lumina_user', JSON.stringify(u));
+}
+
+async function _hash(pwd) {
+  // Prefer real digest when available; falls back to btoa for compatibility.
+  const s = String(pwd || '');
+  if (window.crypto && window.crypto.subtle && window.TextEncoder) {
+    const enc = new TextEncoder();
+    const data = enc.encode(s);
+    const hash = await window.crypto.subtle.digest('SHA-256', data);
+    // convert to hex
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+  return btoa(s);
+}
+
+async function signupUser(email, name, pwd) {
+  email = String(email || '').trim().toLowerCase();
+  name = String(name || '').trim();
+  const users = _getUsers();
+  if (users.find(u => u.email === email)) return { ok: false, msg: 'exists' };
+  const hpwd = await _hash(pwd);
+  const u = { email, name, pwd: hpwd };
+  users.push(u);
+  _saveUsers(users);
+  _setCurrentUser({ email, name });
+  return { ok: true };
+}
+
+async function loginUser(email, pwd) {
+  email = String(email || '').trim().toLowerCase();
+  const users = _getUsers();
+  const h = await _hash(pwd);
+  const found = users.find(u => u.email === email && u.pwd === h);
+  if (!found) return { ok: false };
+  _setCurrentUser({ email: found.email, name: found.name });
+  return { ok: true };
+}
+
+function logoutUser() {
+  _setCurrentUser(null);
+  updateHeaderAuthUI();
+}
+
+function updateProfile(name) {
+  const cur = _currentUser();
+  if (!cur) return false;
+  const users = _getUsers();
+  const u = users.find(x => x.email === cur.email);
+  if (!u) return false;
+  u.name = name;
+  _saveUsers(users);
+  _setCurrentUser({ email: u.email, name: u.name });
+  return true;
+}
+
+function updateHeaderAuthUI() {
+  const a = document.getElementById('accountLink');
+  if (!a) return;
+  const cur = _currentUser();
+  if (cur) {
+    a.setAttribute('data-i18n','account.title');
+    a.href = 'account.html';
+  } else {
+    a.setAttribute('data-i18n','auth.login');
+    a.href = 'login.html';
+  }
+  if (typeof applyLang === 'function') applyLang(getLang());
+}
+
+// ==========================
+// Init
 // ==========================
 document.addEventListener("DOMContentLoaded", () => {
-  // init lang
   applyLang(getLang());
 
-  // bind lang button
   const langBtn = document.getElementById("langBtn");
-  langBtn?.addEventListener("click", toggleLang);
+  if (langBtn) langBtn.addEventListener("click", toggleLang);
 
-  // splash
   initSplash();
+  initContact();
+  updateHeaderAuthUI();
 
-  // demo buttons
+  // Auth page / account wiring
+  const authForm = document.getElementById('authForm');
+  if (authForm && authForm.getAttribute('data-backend') !== 'true') {
+    authForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailEl = document.getElementById('authEmail') || {};
+      const pwdEl = document.getElementById('authPassword') || {};
+      const nameEl = document.getElementById('authName') || {};
+      const email = String(emailEl.value || '').trim();
+      const pwd = String(pwdEl.value || '');
+      const name = String(nameEl.value || '').trim();
+      const mode = authForm.getAttribute('data-mode') || 'login';
+      if (mode === 'signup') {
+        const res = await signupUser(email, name, pwd);
+        if (res.ok) location.href = 'account.html';
+        else alert(getLang() === 'fr' ? 'Utilisateur existant' : 'User already exists');
+      } else {
+        const res = await loginUser(email, pwd);
+        if (res.ok) location.href = 'account.html';
+        else alert(getLang() === 'fr' ? 'Email ou mot de passe incorrect' : 'Bad credentials');
+      }
+    });
+  }
+
+  // Try to get current user from server (cookie-based session).
+  fetch('http://localhost:8001/api/me')
+    .then(r => r.ok ? r.json() : Promise.reject(r))
+    .then(u => {
+      if (u && u.email) {
+        localStorage.setItem('lumina_user', JSON.stringify({email: u.email, name: u.name}));
+      }
+      updateHeaderAuthUI();
+    })
+    .catch(()=>{
+      // no valid session
+      localStorage.removeItem('lumina_user');
+      updateHeaderAuthUI();
+    });
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      logoutUser();
+      location.href = 'index.html';
+    });
+  }
+
+  // Account page: populate profile
+  if (document.body.classList.contains('page-account')) {
+    const cur = _currentUser();
+    const nameEl = document.getElementById('profileName');
+    const emailEl = document.getElementById('profileEmail');
+    if (cur && nameEl) nameEl.value = cur.name || '';
+    if (cur && emailEl) emailEl.textContent = cur.email || '';
+    const saveBtn = document.getElementById('saveProfile');
+    if (saveBtn) {
+      saveBtn.addEventListener('click', () => {
+        const newName = (document.getElementById('profileName') || {}).value || '';
+        if (updateProfile(newName)) alert(getLang() === 'fr' ? 'Profil mis à jour' : 'Profile updated');
+        updateHeaderAuthUI();
+      });
+    }
+  }
+
+  // Search page controls
   const searchBtn = document.getElementById("searchBtn");
   const resetBtn = document.getElementById("resetBtn");
   const status = document.getElementById("status");
   const q = document.getElementById("q");
 
-  searchBtn?.addEventListener("click", () => {
-    renderResults(q?.value || "");
-    if (status) {
-      status.textContent = getLang() === "fr" ? "Résultats mis à jour (mock)." : "Results updated (mock).";
-      setTimeout(() => (status.textContent = ""), 1800);
-    }
-  });
-
-  resetBtn?.addEventListener("click", () => {
-    if (q) q.value = "";
-    const genre = document.getElementById("genre");
-    const mood = document.getElementById("mood");
-    const person = document.getElementById("person");
-    if (genre) genre.value = "";
-    if (mood) mood.value = "";
-    if (person) person.value = "";
-
+  if (searchBtn && resetBtn && q) {
     renderEmptyResults();
 
-    if (status) {
-      status.textContent = getLang() === "fr" ? "Formulaire réinitialisé." : "Form reset.";
-      setTimeout(() => (status.textContent = ""), 1800);
-    }
-  });
+    searchBtn.addEventListener("click", async () => {
+      await renderResults(q.value);
+      if (status) {
+        status.textContent = getLang() === "fr" ? "Résultats mis à jour." : "Results updated.";
+        setTimeout(() => (status.textContent = ""), 1800);
+      }
+    });
 
-  // Enter in input triggers search
-  q?.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") searchBtn?.click();
-  });
+    resetBtn.addEventListener("click", () => {
+      q.value = "";
+      const genre = document.getElementById("genre");
+      const mood = document.getElementById("mood");
+      const person = document.getElementById("person");
+      if (genre) genre.value = "";
+      if (mood) mood.value = "";
+      if (person) person.value = "";
 
-  // initial empty results
-  renderEmptyResults();
+      renderEmptyResults();
+
+      if (status) {
+        status.textContent = getLang() === "fr" ? "Formulaire réinitialisé." : "Form reset.";
+        setTimeout(() => (status.textContent = ""), 1800);
+      }
+    });
+
+    q.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") searchBtn.click();
+    });
+  }
 });

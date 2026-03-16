@@ -8,12 +8,11 @@
   <script defer src="app.js"></script>
 </head>
 
-<body>
+<body class="page-home">
 
-  <!-- ✅ SPLASH / PAGE D'ACCUEIL -->
+  <!-- SPLASH / PAGE D'ACCUEIL -->
   <div id="splash" class="splash" role="dialog" aria-modal="true" aria-label="Accueil Lumina Film">
     <div class="splash__card">
-      <!-- ✅ Ton logo -->
       <img class="splash__logoImg" src="assets/lumina-logo.png" alt="Lumina Film logo" />
 
       <div class="splash__brand">
@@ -37,7 +36,7 @@
 
   <header class="header">
     <div class="container header__inner">
-      <a class="brand" href="#">
+      <a class="brand" href="index.html">
         <span class="brand__icon">🎬</span>
         <span class="brand__text">
           <span class="brand__name">Lumina Film</span>
@@ -46,34 +45,28 @@
       </a>
 
       <nav class="nav">
-        <a class="nav__link active" href="#home" data-i18n="nav.home">Accueil</a>
-        <a class="nav__link" href="#demo" data-i18n="nav.demo">Démo</a>
-        <a class="nav__link" href="#about" data-i18n="nav.about">À propos</a>
+        <a class="nav__link active" href="index.html" data-i18n="nav.home">Accueil</a>
+        <a class="nav__link" href="search.html" data-i18n="nav.search">Recherche</a>
+        <a class="nav__link" href="about.html" data-i18n="nav.about">À propos / Contact</a>
+        <a class="nav__link" id="accountLink" href="login.html">Se connecter</a>
       </nav>
 
-      <!-- ✅ Bouton langue -->
-      <button class="btn btn--ghost" id="langBtn" type="button" aria-label="Changer la langue">
-        FR
-      </button>
-
+      <button class="btn btn--ghost" id="langBtn" type="button" aria-label="Changer la langue">FR</button>
       <button class="nav__toggle" aria-label="Ouvrir le menu">☰</button>
     </div>
   </header>
 
   <main>
-    <!-- HERO -->
-    <section id="home" class="section hero">
+    <section class="section hero">
       <div class="container hero__grid">
         <div class="hero__left">
           <p class="kicker" data-i18n="hero.kicker">Recommandations personnalisées</p>
           <h1 data-i18n="hero.title">Découvre des films similaires à ceux que tu aimes.</h1>
-          <p class="lead" data-i18n="hero.lead">
-            Tout commence par une simple recherche...
-          </p>
+          <p class="lead" data-i18n="hero.lead">Tout commence par une simple recherche...</p>
 
           <div class="cta">
-            <a class="btn btn--primary" href="#demo" data-i18n="hero.cta.demo">Voir l’interface</a>
-            <a class="btn btn--ghost" href="#about" data-i18n="hero.cta.about">Comprendre le projet</a>
+            <a class="btn btn--primary" href="search.html" data-i18n="hero.cta.search">Aller à la recherche</a>
+            <a class="btn btn--ghost" href="about.html" data-i18n="hero.cta.about">À propos / Contact</a>
           </div>
 
           <div class="stats">
@@ -118,90 +111,7 @@
               <div class="divider"></div>
 
               <div class="muted small" data-i18n="example.text">
-                Ensuite l’utilisateur peut noter le film, évaluer la recommandation et
-                laisser un commentaire.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- DEMO UI -->
-    <section id="demo" class="section">
-      <div class="container">
-        <div class="section__head">
-          <h2 data-i18n="demo.title">Démo (interface)</h2>
-          <p class="muted" data-i18n="demo.subtitle">
-            Pour l’instant, c’est un exemple, rien n'est réellement fonctionnel
-          </p>
-        </div>
-
-        <div class="grid grid--2">
-          <div class="card">
-            <div class="card__header">
-              <div>
-                <div class="card__title" data-i18n="search.title">Recherche</div>
-                <div class="card__subtitle" data-i18n="search.subtitle">Titre + filtres</div>
-              </div>
-            </div>
-
-            <div class="card__body">
-              <div class="form">
-                <div class="field">
-                  <label for="q" data-i18n="form.liked.label">Film que tu as aimé</label>
-                  <input id="q" data-i18n-placeholder="form.liked.ph" placeholder="Ex : Inception, The Notebook, The Dark Knight..." />
-                </div>
-
-                <div class="grid grid--2">
-                  <div class="field">
-                    <label for="genre" data-i18n="form.genre.label">Genre</label>
-                    <select id="genre">
-                      <option value="" data-i18n="form.genre.opt0">(optionnel)</option>
-                      <option>Action</option>
-                      <option>Romance</option>
-                      <option>Drama</option>
-                      <option>Science Fiction</option>
-                      <option>Thriller</option>
-                      <option>Superhero</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="mood" data-i18n="form.keyword.label">Keyword</label>
-                    <input id="mood" data-i18n-placeholder="form.keyword.ph" placeholder="Ex : emotional, horror, superhero..." />
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label for="person" data-i18n="form.person.label">Acteur / Réalisateur</label>
-                  <input id="person" data-i18n-placeholder="form.person.ph" placeholder="Ex : Nolan, DiCaprio..." />
-                </div>
-
-                <div class="row">
-                  <button id="searchBtn" class="btn btn--primary" data-i18n="form.search">Rechercher</button>
-                  <button id="resetBtn" class="btn btn--ghost" data-i18n="form.reset">Reset</button>
-                  <span id="status" class="muted small"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__header">
-              <div>
-                <div class="card__title" data-i18n="results.title">Résultats</div>
-                <div class="card__subtitle" data-i18n="results.subtitle">Cartes + score de similarité</div>
-              </div>
-            </div>
-
-            <div class="card__body">
-              <div id="results" class="results">
-                <div class="empty">
-                  <div class="empty__icon">🔎</div>
-                  <div class="empty__title" data-i18n="results.emptyTitle">Lance une recherche</div>
-                  <div class="muted small" data-i18n="results.emptyText">Tu verras ici des films recommandés.</div>
-                </div>
+                Ensuite l’utilisateur peut noter le film, évaluer la recommandation et laisser un commentaire.
               </div>
             </div>
           </div>
@@ -210,57 +120,15 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="section">
+    <section class="section">
       <div class="container">
-        <div class="section__head">
-          <h2 data-i18n="about.title">À propos</h2>
-          <p class="muted" data-i18n="about.subtitle">
-            Le coeur du projet, et ses avancées prévues
-          </p>
-        </div>
-
-        <div class="grid grid--3">
-          <div class="card">
-            <div class="card__header">
-              <div class="card__title" data-i18n="about.data.title">Données</div>
-            </div>
-            <div class="card__body">
-              <ul class="list">
-                <li data-i18n="about.data.li1">Films (genres, keywords, cast/crew)</li>
-                <li data-i18n="about.data.li2">Utilisateurs (profil + préférences)</li>
-                <li data-i18n="about.data.li3">Notes & commentaires</li>
-                <li data-i18n="about.data.li4">Historique de recommandations</li>
-              </ul>
-            </div>
+        <div class="note">
+          <div class="note__title" data-i18n="home.noteTitle">Prêt à tester ?</div>
+          <div class="note__body muted" data-i18n="home.noteBody">
+            Va sur la page Recherche pour voir l’interface et les résultats mock.
           </div>
-
-          <div class="card">
-            <div class="card__header">
-              <div class="card__title" data-i18n="about.algo.title">Algorithme</div>
-            </div>
-            <div class="card__body">
-              <ul class="list">
-                <li data-i18n="about.algo.li1">Genre (pondération forte)</li>
-                <li data-i18n="about.algo.li2">Keywords</li>
-                <li data-i18n="about.algo.li3">Acteurs / réalisateur</li>
-                <li data-i18n="about.algo.li4">Ajustement par feedback</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card__header">
-              <div class="card__title" data-i18n="about.next.title">Next steps</div>
-            </div>
-            <div class="card__body">
-              <ul class="list">
-                <li data-i18n="about.next.li1">Brancher une API de films</li>
-                <li data-i18n="about.next.li2">Ajouter un backend + DB</li>
-                <li data-i18n="about.next.li3">Authentification (optionnel)</li>
-                <li data-i18n="about.next.li4">Améliorer le scoring</li>
-              </ul>
-            </div>
+          <div style="margin-top:10px">
+            <a class="btn btn--primary" href="search.html" data-i18n="home.noteCta">Ouvrir Recherche</a>
           </div>
         </div>
       </div>

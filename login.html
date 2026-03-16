@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lumina Film — Connexion</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+
+<body class="page-login">
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="index.html">
+        <span class="brand__icon">🎬</span>
+        <span class="brand__text">
+          <span class="brand__name">Lumina Film</span>
+          <span class="brand__tag" data-i18n="brand.tag">Prototype</span>
+        </span>
+      </a>
+
+      <nav class="nav">
+        <a class="nav__link" href="index.html" data-i18n="nav.home">Accueil</a>
+        <a class="nav__link" href="search.html" data-i18n="nav.search">Recherche</a>
+        <a class="nav__link" href="about.html" data-i18n="nav.about">À propos / Contact</a>
+        <a class="nav__link" id="accountLink" href="login.html">Se connecter</a>
+      </nav>
+
+      <button class="btn btn--ghost" id="langBtn" type="button" aria-label="Changer la langue">FR</button>
+      <button class="nav__toggle" aria-label="Ouvrir le menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="card">
+          <div class="card__header">
+            <div>
+              <div class="card__title" data-i18n="auth.title">Connexion / Inscription</div>
+              <div class="card__subtitle muted" data-i18n="auth.subtitle">Prototype client-side auth (no backend)</div>
+            </div>
+          </div>
+
+          <div class="card__body">
+            <form id="authForm" data-mode="login" data-backend="true">
+              <div class="field">
+                <label for="authEmail" data-i18n="auth.email">Email</label>
+                <input id="authEmail" type="email" data-i18n-placeholder="auth.emailPh" placeholder="you@email.com" required />
+              </div>
+
+              <div class="field" id="nameField" style="display:none">
+                <label for="authName" data-i18n="auth.name">Nom</label>
+                <input id="authName" data-i18n-placeholder="auth.namePh" placeholder="Ton nom" />
+              </div>
+
+              <div class="field">
+                <label for="authPassword" data-i18n="auth.password">Mot de passe</label>
+                <input id="authPassword" type="password" required />
+              </div>
+
+              <div class="row">
+                <button id="authSubmit" class="btn btn--primary" type="submit" data-i18n="auth.login">Se connecter</button>
+                <button id="switchMode" class="btn btn--ghost" type="button" data-i18n="auth.switchToSignup">S'inscrire</button>
+              </div>
+              <div style="margin-top:12px">
+                <a id="googleBtn" class="btn btn--ghost" href="/api/auth/google">Se connecter avec Google</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span class="muted small">©<span data-i18n="footer.brand">Lumina Film</span> — CSC 317</span>
+      <span class="muted small" data-i18n="footer.right">French creator</span>
+    </div>
+  </footer>
+
+  <script>
+    // small page-only UI: toggle between login and signup
+    (function(){
+      const f = document.getElementById('authForm');
+      const s = document.getElementById('switchMode');
+      const nameField = document.getElementById('nameField');
+      const submitBtn = f && f.querySelector('button[type=submit]');
+      if (!f || !s) return;
+      s.addEventListener('click', () => {
+        const mode = f.getAttribute('data-mode') || 'login';
+        if (mode === 'login') {
+          f.setAttribute('data-mode','signup');
+          nameField.style.display = '';
+          submitBtn.setAttribute('data-i18n'  ,'auth.signup');
+          s.setAttribute('data-i18n','auth.switchToLogin');
+        } else {
+          f.setAttribute('data-mode','login');
+          nameField.style.display = 'none';
+          submitBtn.setAttribute('data-i18n','auth.login');
+          s.setAttribute('data-i18n','auth.switchToSignup');
+        }
+        if (typeof applyLang === 'function') applyLang(getLang());
+      });
+
+      // If form targets backend, handle submission via fetch
+      if (f && f.getAttribute('data-backend') === 'true') {
+        f.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const mode = f.getAttribute('data-mode') || 'login';
+          const email = (document.getElementById('authEmail')||{}).value || '';
+          const pwd = (document.getElementById('authPassword')||{}).value || '';
+          const name = (document.getElementById('authName')||{}).value || '';
+          try {
+            const url = mode === 'signup' ? '/api/signup' : '/api/login';
+            const res = await fetch(url, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({email, password: pwd, name})});
+            if (!res.ok) {
+              const j = await res.json().catch(()=>({detail:'error'}));
+              alert(j.detail || 'Auth error');
+              return;
+            }
+            const j = await res.json();
+            // server sets HttpOnly cookie; frontend should not store tokens
+            if (j.email) localStorage.setItem('lumina_user', JSON.stringify({email:j.email, name:j.name}));
+            location.href = '/account.html';
+          } catch (err) {
+            alert('Network error');
+          }
+        });
+      }
+    }());
+  </script>
+</body>
+</html>
