@@ -1,75 +1,101 @@
-<!doctype html>
+d<!doctype html>
+
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lumina Film — Mon compte</title>
+  <title>Lumina — Mon compte</title>
   <link rel="stylesheet" href="styles.css" />
   <script defer src="app.js"></script>
 </head>
 
 <body class="page-account">
-  <header class="header">
-    <div class="container header__inner">
-      <a class="brand" href="index.html">
-        <span class="brand__icon">🎬</span>
-        <span class="brand__text">
-          <span class="brand__name">Lumina Film</span>
-          <span class="brand__tag" data-i18n="brand.tag">Prototype</span>
-        </span>
-      </a>
 
-      <nav class="nav">
-        <a class="nav__link" href="index.html" data-i18n="nav.home">Accueil</a>
-        <a class="nav__link" href="search.html" data-i18n="nav.search">Recherche</a>
-        <a class="nav__link" href="about.html" data-i18n="nav.about">À propos / Contact</a>
-        <a class="nav__link" id="accountLink" href="account.html">Mon compte</a>
-      </nav>
+<header class="header">
+  <div class="container header__inner">
 
-      <button class="btn btn--ghost" id="langBtn" type="button" aria-label="Changer la langue">FR</button>
-      <button class="nav__toggle" aria-label="Ouvrir le menu">☰</button>
-    </div>
-  </header>
+```
+<a class="brand" href="index.html">
+  Lumina
+</a>
 
-  <main>
-    <section class="section">
-      <div class="container">
-        <div class="card">
-            <div class="card__header">
-              <div>
-                <div class="card__title" data-i18n="account.title">Mon compte</div>
-                <div class="card__subtitle muted" data-i18n="account.subtitle">Gérer votre profil</div>
-              </div>
-              <div>
-                <button id="logoutBtn" class="btn btn--ghost" data-i18n="account.logout">Se déconnecter</button>
-              </div>
-            </div>
+<nav class="nav">
+  <a class="nav__link" href="index.html" data-i18n="nav.home">Accueil</a>
+  <a class="nav__link" href="search.html" data-i18n="nav.search">Recherche</a>
+  <a class="nav__link" href="about.html" data-i18n="nav.about">À propos / Contact</a>
+  <a class="nav__link active" id="accountLink" href="account.html" data-i18n="account.title">Mon compte</a>
+</nav>
 
-            <div class="card__body">
-              <div class="field">
-                <label for="profileName" data-i18n="auth.name">Nom</label>
-                <input id="profileName" />
-              </div>
+<div style="display:flex;align-items:center;gap:12px;">
+  <button class="btn" id="langBtn" type="button" aria-label="Changer la langue">
+    FR
+  </button>
+</div>
+```
 
-              <div class="field">
-                <label data-i18n="auth.email">Email</label>
-                <div id="profileEmail" class="muted small"></div>
-              </div>
+  </div>
+</header>
 
-              <div class="row">
-                <button id="saveProfile" class="btn btn--primary" data-i18n="account.save">Enregistrer</button>
-              </div>
-            </div>
+<main>
+  <section class="section">
+    <div class="container">
+
+```
+  <div class="card">
+    <div class="card__header">
+
+      <div>
+        <div class="card__title" data-i18n="account.title">Mon compte</div>
+        <div class="card__subtitle muted" data-i18n="account.subtitle">
+          Gérer votre profil
         </div>
       </div>
-    </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container footer__inner">
-      <span class="muted small">©<span data-i18n="footer.brand">Lumina Film</span> — CSC 317</span>
-      <span class="muted small" data-i18n="footer.right">French creator</span>
+      <div>
+        <button id="logoutBtn" class="btn btn--ghost" data-i18n="account.logout">
+          Se déconnecter
+        </button>
+      </div>
+
     </div>
-  </footer>
+
+    <div class="card__body">
+
+      <div class="field">
+        <label for="profileName" data-i18n="auth.name">Nom</label>
+        <input id="profileName" />
+      </div>
+
+      <div class="field">
+        <label data-i18n="auth.email">Email</label>
+        <div id="profileEmail" class="muted small"></div>
+      </div>
+
+      <div class="row">
+        <button id="saveProfile" class="btn btn--primary" data-i18n="account.save">
+          Enregistrer
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+```
+
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="muted small">
+      ©<span data-i18n="footer.brand">Lumina</span> — CSC 317
+    </span>
+    <span class="muted small" data-i18n="footer.right">
+      French creator
+    </span>
+  </div>
+</footer>
+
 </body>
 </html>

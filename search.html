@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lumina Film — Recherche</title>
+  <title>Lumina — Recherche</title>
   <link rel="stylesheet" href="styles.css" />
   <script defer src="app.js"></script>
 </head>
@@ -12,10 +12,9 @@
   <header class="header">
     <div class="container header__inner">
       <a class="brand" href="index.html">
-        <span class="brand__icon">🎬</span>
+        <span class="brand__icon"></span>
         <span class="brand__text">
-          <span class="brand__name">Lumina Film</span>
-          <span class="brand__tag" data-i18n="brand.tag">Prototype</span>
+          <span class="brand__name">Lumina</span>
         </span>
       </a>
 
@@ -45,7 +44,7 @@
             <div class="card__header">
               <div>
                 <div class="card__title" data-i18n="search.title">Recherche</div>
-                <div class="card__subtitle" data-i18n="search.subtitle">Titre + filtres</div>
+              <div class="card__subtitle" data-i18n="search.subtitle">Titre</div>
               </div>
             </div>
 
@@ -54,45 +53,6 @@
                 <div class="field">
                   <label for="q" data-i18n="form.liked.label">Film que tu as aimé</label>
                   <input id="q" data-i18n-placeholder="form.liked.ph" placeholder="Ex : Inception, The Notebook, The Dark Knight..." />
-                </div>
-
-                <div class="grid grid--2">
-                  <div class="field">
-                    <label for="genre" data-i18n="form.genre.label">Genre</label>
-                    <select id="genre">
-                      <option value="" data-i18n="form.genre.opt0">(optionnel)</option>
-                      <option>Action</option>
-                      <option>Romance</option>
-                      <option>Drama</option>
-                      <option>Science Fiction</option>
-                      <option>Thriller</option>
-                      <option>Anime</option>
-                      <option>Black History Month</option>
-                      <option>Classique</option>
-                      <option>Comédies</option>
-                      <option>Courts-métrages</option>
-                      <option>Culte</option>
-                      <option>Documentaires</option>
-                      <option>En phase avec votre humeur</option>
-                      <option>Fantastique</option>
-                      <option>Foi et spiritualité</option>
-                      <option>Horreur</option>
-                      <option>Il y a de l'amour dans l'air...</option>
-                      <option>Indépendants</option>
-                      <option>International</option>
-                      <option>Jeunesse et famille</option>
-                    </select>
-                  </div>
-
-                  <div class="field">
-                    <label for="mood" data-i18n="form.keyword.label">Keyword</label>
-                    <input id="mood" data-i18n-placeholder="form.keyword.ph" placeholder="Ex : emotional, horror, superhero..." />
-                  </div>
-                </div>
-
-                <div class="field">
-                  <label for="person" data-i18n="form.person.label">Acteur / Réalisateur</label>
-                  <input id="person" data-i18n-placeholder="form.person.ph" placeholder="Ex : Nolan, DiCaprio..." />
                 </div>
 
                 <div class="row">
@@ -130,7 +90,7 @@
 
   <footer class="footer">
     <div class="container footer__inner">
-      <span class="muted small">©<span data-i18n="footer.brand">Lumina Film</span> — CSC 317</span>
+      <span class="muted small">©<span data-i18n="footer.brand">Lumina</span> — CSC 317</span>
       <span class="muted small" data-i18n="footer.right">French creator</span>
     </div>
   </footer>

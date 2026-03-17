@@ -12,9 +12,9 @@
   <header class="header">
     <div class="container header__inner">
       <a class="brand" href="index.html">
-        <span class="brand__icon">🎬</span>
+        <span class="brand__icon"></span>
         <span class="brand__text">
-          <span class="brand__name">Lumina Film</span>
+          <span class="brand__name">Lumina </span>
           <span class="brand__tag" data-i18n="brand.tag">Prototype</span>
         </span>
       </a>
@@ -43,7 +43,7 @@
 
   <footer class="footer">
     <div class="container">
-      <p data-i18n="footer.brand">Lumina Film</p>
+      <p data-i18n="footer.brand">Lumina </p>
       <p data-i18n="footer.right">French creator</p>
     </div>
   </footer>
@@ -66,7 +66,7 @@
           <div class="card">
             <div class="card__header">
               <h1>${movie.title}</h1>
-              ${movie.poster_path ? `<img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}" style="float: right; margin-left: 20px;">` : ''}
+              ${movie.poster_path ? `<img src="https://image.tmdb.org/t/p/w300${movie.poster_path}" alt="${movie.title}" style="float: right; margin-left: 20px;" crossorigin="anonymous">` : ''}
               <p><strong>Sortie :</strong> ${movie.release_date || 'N/A'}</p>
               <p><strong>Note :</strong> ${movie.vote_average || 'N/A'}/10</p>
               <p><strong>Genres :</strong> ${movie.genres.join(', ') || 'N/A'}</p>

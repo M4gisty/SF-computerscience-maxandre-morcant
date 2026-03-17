@@ -1,15 +1,13 @@
-// ========= Helpers =========
+
 function getLang() {
   return localStorage.getItem("lumina_lang") || "fr";
 }
-// ==========================
-// i18n dictionaries
-// ==========================
+
 const I18N = {
   fr: {
-    titleHome: "Lumina Film — Recommandation intelligente de films",
-    titleSearch: "Lumina Film — Recherche",
-    titleAbout: "Lumina Film — À propos / Contact",
+    titleHome: "Lumina — Recommandation intelligente de films",
+    titleSearch: "Lumina — Recherche",
+    titleAbout: "Lumina — À propos / Contact",
 
     "brand.tag": "Prototype",
 
@@ -51,7 +49,7 @@ const I18N = {
     "demo.subtitle": "Recherche fonctionnelle : les résultats viennent maintenant d’une API",
 
     "search.title": "Recherche",
-    "search.subtitle": "Titre + filtres",
+    "search.subtitle": "Titre",
 
     "form.liked.label": "Film que tu as aimé",
     "form.liked.ph": "Ex : Inception, The Notebook, The Dark Knight...",
@@ -101,9 +99,18 @@ const I18N = {
     "contact.send": "Envoyer",
     "contact.note": "(Pour l’instant, ça ne fait pas d’envoi réel — on pourra le brancher plus tard.)",
 
+    "site.summary.title": "Résumé du site",
+    "site.summary.text": "Lumina est une plateforme de recommandation de films intelligente. Entrez le nom d'un film que vous avez aimé, et découvrez des films similaires basés sur des données réelles de The Movie Database (TMDB). Explorez les détails des films, regardez les trailers, et trouvez où les regarder en streaming.",
+    "site.summary.text2": "Ce prototype a été développé dans le cadre du cours CSC 317, utilisant des technologies web modernes pour offrir une expérience utilisateur fluide.",
+
+    "contact.title": "Contact",
+    "contact.text": "Pour toute question, suggestion ou retour, contactez-moi :",
+    "contact.email": "Email :",
+    "contact.open": "Je suis ouvert aux commentaires pour améliorer Lumina !",
+
     "auth.title": "Connexion / Inscription",
     "auth.subtitle": "Prototype client-side auth (no backend)",
-    "titleLogin": "Lumina Film — Connexion",
+    "titleLogin": "Lumina — Connexion",
     "auth.email": "Email",
     "auth.emailPh": "tonmail@email.com",
     "auth.name": "Nom",
@@ -115,18 +122,18 @@ const I18N = {
     "auth.switchToLogin": "Déjà inscrit ? Se connecter",
     "account.title": "Mon compte",
     "account.subtitle": "Gérer votre profil",
-    "titleAccount": "Lumina Film — Mon compte",
+    "titleAccount": "Lumina — Mon compte",
     "account.logout": "Se déconnecter",
     "account.save": "Enregistrer",
 
-    "footer.brand": "Lumina Film",
+    "footer.brand": "Lumina",
     "footer.right": "French creator",
   },
 
   en: {
-    titleHome: "Lumina Film — Smart movie recommendations",
-    titleSearch: "Lumina Film — Search",
-    titleAbout: "Lumina Film — About / Contact",
+    titleHome: "Lumina — Smart movie recommendations",
+    titleSearch: "Lumina — Search",
+    titleAbout: "Lumina — About / Contact",
 
     "brand.tag": "Prototype",
 
@@ -218,9 +225,18 @@ const I18N = {
     "contact.send": "Send",
     "contact.note": "(For now, this doesn’t actually send — we can wire it later.)",
 
+    "site.summary.title": "Site Summary",
+    "site.summary.text": "Lumina is an intelligent movie recommendation platform. Enter the name of a movie you loved, and discover similar movies based on real data from The Movie Database (TMDB). Explore movie details, watch trailers, and find where to watch them on streaming.",
+    "site.summary.text2": "This prototype was developed as part of the CSC 317 course, using modern web technologies to provide a smooth user experience.",
+
+    "contact.title": "Contact",
+    "contact.text": "For any questions, suggestions, or feedback, contact me:",
+    "contact.email": "Email:",
+    "contact.open": "I am open to comments to improve Lumina!",
+
     "auth.title": "Sign in / Sign up",
     "auth.subtitle": "Prototype client-side auth (no backend)",
-    "titleLogin": "Lumina Film — Sign in",
+    "titleLogin": "Lumina — Sign in",
     "auth.email": "Email",
     "auth.emailPh": "you@email.com",
     "auth.name": "Name",
@@ -232,11 +248,11 @@ const I18N = {
     "auth.switchToLogin": "Already registered? Sign in",
     "account.title": "My account",
     "account.subtitle": "Manage your profile",
-    "titleAccount": "Lumina Film — My account",
+    "titleAccount": "Lumina — My account",
     "account.logout": "Sign out",
     "account.save": "Save",
 
-    "footer.brand": "Lumina Film",
+    "footer.brand": "Lumina",
     "footer.right": "French creator",
   }
 };
@@ -338,10 +354,6 @@ async function renderResults(query) {
   const results = document.getElementById("results");
   if (!results) return;
 
-  const genre = document.getElementById("genre")?.value || '';
-  const mood  = document.getElementById("mood")?.value || '';
-  const person = document.getElementById("person")?.value || '';
-
   if (!query.trim()) {
     renderEmptyResults();
     return;
@@ -351,9 +363,6 @@ async function renderResults(query) {
 
   try {
     const url = `http://localhost:8001/api/search?q=${encodeURIComponent(query)}` +
-                `&genre=${encodeURIComponent(genre)}` +
-                `&mood=${encodeURIComponent(mood)}` +
-                `&person=${encodeURIComponent(person)}` +
                 `&lang=${getLang()}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error('search failed');
@@ -377,7 +386,7 @@ async function renderResults(query) {
           <div class="movie__genres">${m.genres ? m.genres.join(', ') : ''}</div>
         </div>
         <div class="movie__poster">
-          ${m.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${m.poster_path}" alt="${m.title}">` : ''}
+          ${m.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${m.poster_path}" alt="${m.title}" crossorigin="anonymous">` : ''}
         </div>
         <div class="movie__actions">
           <span class="badge">${m.score ?? ''}%</span>
@@ -623,12 +632,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     resetBtn.addEventListener("click", () => {
       q.value = "";
-      const genre = document.getElementById("genre");
-      const mood = document.getElementById("mood");
-      const person = document.getElementById("person");
-      if (genre) genre.value = "";
-      if (mood) mood.value = "";
-      if (person) person.value = "";
 
       renderEmptyResults();
 

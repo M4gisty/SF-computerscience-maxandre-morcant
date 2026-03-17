@@ -152,26 +152,23 @@ async def me(request: Request):
 
 
 
-# lightweight movie search proxy / fallback
-TMDB_KEY = os.getenv('TMDB_API_KEY')
+TMDB_KEY = os.getenv('TMDB_API_KEY', '027275369c3c735cd19e0f038fa762b9')
 TMDB_URL = 'https://api.themoviedb.org/3/search/movie'
 
-# Mapping des genres français aux IDs TMDB (liste partielle)
 GENRE_MAP = {
     'Action': 28,
     'Romance': 10749,
     'Drama': 18,
     'Science Fiction': 878,
     'Thriller': 53,
-    'Anime': 16,  # Animation
+    'Anime': 16,  
     'Comédies': 35,
     'Fantastique': 14,
     'Horreur': 27,
     'Documentaires': 99,
-    # Ajoute d'autres si nécessaire
 }
 
-# Reverse map pour ids to names
+
 GENRE_ID_TO_NAME = {v: k for k, v in GENRE_MAP.items()}
 
 def get_genre_id(genre_name):
@@ -187,7 +184,7 @@ def get_keyword_id(keyword, api_key):
         if r.status_code == 200:
             results = r.json().get('results', [])
             if results:
-                return results[0]['id']  # Prend le premier
+                return results[0]['id'] 
     except:
         pass
     return None
@@ -202,7 +199,7 @@ def get_person_id(person_name, api_key):
         if r.status_code == 200:
             results = r.json().get('results', [])
             if results:
-                return results[0]['id']  # Prend le premier
+                return results[0]['id']  
     except:
         pass
     return None
@@ -215,7 +212,6 @@ async def get_movie_details(movie_id: int, lang: str = 'en'):
 
     language = 'fr-FR' if lang == 'fr' else 'en-US'
     try:
-        # Détails du film
         detail_url = f'https://api.themoviedb.org/3/movie/{movie_id}'
         params = {'api_key': TMDB_KEY, 'language': language}
         r = requests.get(detail_url, params=params, timeout=5)
@@ -223,14 +219,13 @@ async def get_movie_details(movie_id: int, lang: str = 'en'):
             raise HTTPException(status_code=404, detail='Movie not found')
         movie = r.json()
 
-        # Cast principal
         cast_url = f'https://api.themoviedb.org/3/movie/{movie_id}/credits'
         r2 = requests.get(cast_url, params=params, timeout=5)
         cast = []
         director = None
         if r2.status_code == 200:
             credits = r2.json()
-            cast = [actor['name'] for actor in credits.get('cast', [])[:10]]  # Acteurs principaux (top 10)
+            cast = [actor['name'] for actor in credits.get('cast', [])[:10]]  
             crew = credits.get('crew', [])
             for c in crew:
                 if c.get('job') == 'Director':
@@ -327,7 +322,7 @@ async def search_movies(q: str = '', genre: str = '', mood: str = '', person: st
                     data = r2.json().get('results', [])
                 else:
                     # Fallback to discover with genres
-                    r2 = requests.get(url, params=params, timeout=5)
+                    r2 = requests.get('https://api.themoviedb.org/3/discover/movie', params=params, timeout=5)
                     if r2.status_code != 200:
                         raise HTTPException(status_code=502, detail='tmdb discover error')
                     data = r2.json().get('results', [])
@@ -369,13 +364,50 @@ async def search_movies(q: str = '', genre: str = '', mood: str = '', person: st
                     'score': int(m.get('vote_average',0) * 10)
                 })
         return out
-    # fallback static list, filter by title substring
+    # fallback static list, simulate similar movies
     dummy = [
-        {'title':'Interstellar','overview':'A team of explorers travel through a wormhole...','score':88},
-        {'title':'The Prestige','overview':'Two stage magicians engage in competitive rivalry...','score':81},
-        {'title':'Shutter Island','overview':'In 1954, U.S. Marshal Teddy Daniels investigates...','score':76},
+        {'id': 27205, 'title':'Inception','overview':'A thief who steals corporate secrets through the use of dream-sharing technology...','poster_path': '/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg', 'genres': ['Action', 'Science Fiction', 'Thriller'], 'score':87},
+        {'id': 157336, 'title':'Interstellar','overview':'A team of explorers travel through a wormhole...','poster_path': '/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg', 'genres': ['Adventure', 'Drama', 'Science Fiction'], 'score':88},
+        {'id': 1124, 'title':'The Prestige','overview':'Two stage magicians engage in competitive rivalry...','poster_path': '/5MXyQfz8xUP3dIFPTubhTsbFY6N.jpg', 'genres': ['Drama', 'Mystery', 'Thriller'], 'score':81},
+        {'id': 11324, 'title':'Shutter Island','overview':'In 1954, U.S. Marshal Teddy Daniels investigates...','poster_path': '/4y4Y2c0Z3keDIIXgzWXjmLt9hGp.jpg', 'genres': ['Drama', 'Thriller', 'Mystery'], 'score':76},
+        {'id': 155, 'title':'The Dark Knight','overview':'When the menace known as the Joker wreaks havoc...','poster_path': '/qJ2tW6WMUDux911r6m7haRef0WH.jpg', 'genres': ['Drama', 'Action', 'Crime'], 'score':90},
+        {'id': 11036, 'title':'The Notebook','overview':'A poor yet passionate young man falls in love...','poster_path': '/rNzQyW4f8B8cQeg7Dgj3n6eT5k.jpg', 'genres': ['Romance', 'Drama'], 'score':78},
+        {'id': 920, 'title':'Cars','overview':'A hot-shot race-car named Lightning McQueen gets waylaid...','poster_path': '/u3zt6vTYnUgV6zBK3OUNF9I2vZE.jpg', 'genres': ['Animation', 'Adventure', 'Comedy'], 'score':78},
+        {'id': 862, 'title':'Toy Story','overview':'Led by Woody, Andy\'s toys live happily...','poster_path': '/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg', 'genres': ['Animation', 'Adventure', 'Family'], 'score':83},
+        {'id': 10681, 'title':'WALL-E','overview':'In the distant future, a small waste-collecting robot...','poster_path': '/hbhFnRzzg6ZDmm8YAmxBnQpQIPh.jpg', 'genres': ['Animation', 'Family', 'Science Fiction'], 'score':78},
+        {'id': 77931, 'title':'Turbo','overview':'A snail who dreams of being the fastest snail in the world...','poster_path': '/nPoaL2qaH3HFxbN4t4s4HE7jhq.jpg', 'genres': ['Animation', 'Adventure', 'Family'], 'score':62},
+        {'id': 10193, 'title':'Toy Story 3','overview':'The toys are mistakenly delivered to a day-care center...','poster_path': '/mMltbSxwEdNE4Cv8QYLpzkH7WDD.jpg', 'genres': ['Animation', 'Adventure', 'Family'], 'score':78},
+        {'id': 14160, 'title':'Up','overview':'Seventy-eight year old Carl Fredricksen travels to Paradise Falls...','poster_path': '/vpbaStTMt8qqXaEgnOR2EE4DNCI.jpg', 'genres': ['Animation', 'Adventure', 'Comedy'], 'score':78},
+        {'id': 19995, 'title':'Avatar','overview':'In the 22nd century, a paraplegic Marine is dispatched...','poster_path': '/6EiRUJpuoeQPghrs3YNktfnqOVh.jpg', 'genres': ['Action', 'Adventure', 'Fantasy'], 'score':76},
+        {'id': 597, 'title':'Titanic','overview':'101-year-old Rose DeWitt Bukater tells the story...','poster_path': '/9xjZS2rlVxm8SFx8kPC3aIGCOYq.jpg', 'genres': ['Drama', 'Romance'], 'score':79},
+        {'id': 24428, 'title':'The Avengers','overview':'When an unexpected enemy emerges...','poster_path': '/RYMX2wcKCBAr24UyPD7xwmjaTn.jpg', 'genres': ['Action', 'Adventure', 'Science Fiction'], 'score':78},
+        {'id': 807, 'title':'Se7en','overview':'Two detectives, a rookie and a veteran, hunt a serial killer...','poster_path': '/6yoghtyTpznpBik8EngEmJskVUO.jpg', 'genres': ['Crime', 'Mystery', 'Thriller'], 'score':83},
     ]
-    return [d for d in dummy if q.lower() in d['title'].lower()]
+    similar = {
+        'inception': ['Interstellar', 'The Prestige', 'Shutter Island', 'The Dark Knight'],
+        'interstellar': ['Inception', 'The Prestige', 'The Dark Knight', 'WALL-E'],
+        'the prestige': ['Inception', 'Interstellar', 'Shutter Island', 'The Dark Knight'],
+        'shutter island': ['Inception', 'The Prestige', 'The Dark Knight', 'The Notebook'],
+        'the dark knight': ['Interstellar', 'Shutter Island', 'The Prestige', 'Inception'],
+        'the notebook': ['Shutter Island', 'The Prestige', 'The Dark Knight', 'Titanic'],
+        'cars': ['Toy Story', 'WALL-E', 'Turbo', 'Toy Story 3', 'Up'],
+        'toy story': ['Cars', 'WALL-E', 'Turbo', 'Toy Story 3', 'Up'],
+        'wall-e': ['Cars', 'Toy Story', 'Turbo', 'Interstellar', 'Up'],
+        'turbo': ['Cars', 'Toy Story', 'WALL-E', 'Toy Story 3', 'Up'],
+        'toy story 3': ['Cars', 'Toy Story', 'WALL-E', 'Turbo', 'Up'],
+        'up': ['Cars', 'Toy Story', 'WALL-E', 'Turbo', 'Toy Story 3'],
+        'avatar': ['Interstellar', 'The Avengers', 'WALL-E', 'Inception'],
+        'titanic': ['The Notebook', 'The Prestige', 'Shutter Island'],
+        'the avengers': ['Inception', 'The Dark Knight', 'Interstellar', 'Avatar'],
+        'se7en': ['The Prestige', 'Shutter Island', 'The Dark Knight', 'Inception'],
+    }
+    q_lower = q.lower()
+    if q_lower in similar:
+        similar_titles = similar[q_lower]
+        return [d for d in dummy if d['title'] in similar_titles]
+    else:
+        # for unknown movies, return empty to avoid showing all
+        return []
 
 
 @app.post('/api/ratings')

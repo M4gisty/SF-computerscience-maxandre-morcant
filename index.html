@@ -1,145 +1,83 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lumina Film — Recommandation intelligente de films</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script defer src="app.js"></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Lumina</title>
+
+<link rel="stylesheet" href="styles.css">
+<script defer src="app.js"></script>
+
 </head>
 
-<body class="page-home">
+<body>
 
-  <!-- SPLASH / PAGE D'ACCUEIL -->
-  <div id="splash" class="splash" role="dialog" aria-modal="true" aria-label="Accueil Lumina Film">
-    <div class="splash__card">
-      <img class="splash__logoImg" src="assets/lumina-logo.png" alt="Lumina Film logo" />
+<header class="header">
 
-      <div class="splash__brand">
-        <div class="splash__name">Lumina Film</div>
-        <div class="splash__tag" data-i18n="splash.tag">Recommandations personnalisées</div>
-      </div>
+<div class="container header__inner">
 
-      <p class="splash__text muted" data-i18n="splash.text">
-        Découvre des films similaires à ceux que tu aimes, et aide l’algorithme avec tes retours.
-      </p>
+<a class="logo" href="index.html">
+Lumina
+</a>
 
-      <div class="splash__actions">
-        <button id="enterBtn" class="btn btn--primary" type="button" data-i18n="splash.enter">Entrer</button>
-      </div>
+<nav class="nav">
 
-      <div class="splash__hint muted small" data-i18n="splash.hint">
-        Projet CSC 317 • Prototype UI
-      </div>
-    </div>
-  </div>
+<a class="nav__link active" href="index.html">
+Accueil
+</a>
 
-  <header class="header">
-    <div class="container header__inner">
-      <a class="brand" href="index.html">
-        <span class="brand__icon">🎬</span>
-        <span class="brand__text">
-          <span class="brand__name">Lumina Film</span>
-          <span class="brand__tag" data-i18n="brand.tag">Prototype</span>
-        </span>
-      </a>
+<a class="nav__link" href="search.html">
+Recherche
+</a>
 
-      <nav class="nav">
-        <a class="nav__link active" href="index.html" data-i18n="nav.home">Accueil</a>
-        <a class="nav__link" href="search.html" data-i18n="nav.search">Recherche</a>
-        <a class="nav__link" href="about.html" data-i18n="nav.about">À propos / Contact</a>
-        <a class="nav__link" id="accountLink" href="login.html">Se connecter</a>
-      </nav>
+<a class="nav__link" href="about.html">
+À propos
+</a>
 
-      <button class="btn btn--ghost" id="langBtn" type="button" aria-label="Changer la langue">FR</button>
-      <button class="nav__toggle" aria-label="Ouvrir le menu">☰</button>
-    </div>
-  </header>
+<a class="nav__link" href="login.html">
+Compte
+</a>
 
-  <main>
-    <section class="section hero">
-      <div class="container hero__grid">
-        <div class="hero__left">
-          <p class="kicker" data-i18n="hero.kicker">Recommandations personnalisées</p>
-          <h1 data-i18n="hero.title">Découvre des films similaires à ceux que tu aimes.</h1>
-          <p class="lead" data-i18n="hero.lead">Tout commence par une simple recherche...</p>
+</nav>
 
-          <div class="cta">
-            <a class="btn btn--primary" href="search.html" data-i18n="hero.cta.search">Aller à la recherche</a>
-            <a class="btn btn--ghost" href="about.html" data-i18n="hero.cta.about">À propos / Contact</a>
-          </div>
+</div>
 
-          <div class="stats">
-            <div class="stat">
-              <div class="stat__title" data-i18n="stats.interactions.title">Interactions</div>
-              <div class="stat__value" data-i18n="stats.interactions.value">Recherche • Notes • Commentaires</div>
-            </div>
-            <div class="stat">
-              <div class="stat__title" data-i18n="stats.data.title">Données</div>
-              <div class="stat__value" data-i18n="stats.data.value">Films • Utilisateurs • Historique</div>
-            </div>
-            <div class="stat">
-              <div class="stat__title" data-i18n="stats.goal.title">But</div>
-              <div class="stat__value" data-i18n="stats.goal.value">Découverte + pertinence</div>
-            </div>
-          </div>
-        </div>
+</header>
 
-        <div class="hero__right">
-          <div class="card card--glass">
-            <div class="card__header">
-              <div>
-                <div class="card__title" data-i18n="example.title">Exemple</div>
-                <div class="card__subtitle" data-i18n="example.subtitle">Aperçu d’une recommandation</div>
-              </div>
-              <span class="badge">88%</span>
-            </div>
+<main>
 
-            <div class="card__body">
-              <div class="pill">
-                <span data-i18n="example.liked">Film aimé :</span> <strong>Inception</strong>
-              </div>
+<section class="hero">
 
-              <div class="movie">
-                <div class="movie__meta">
-                  <div class="movie__title">Interstellar</div>
-                  <div class="movie__sub" data-i18n="example.movieSub">Science-fiction • Thriller • Nolan</div>
-                </div>
-                <button class="iconBtn" title="Ajouter aux favoris" data-i18n-titleattr="example.favTitle">☆</button>
-              </div>
+<div class="container">
 
-              <div class="divider"></div>
+<h1>
+Découvre ton prochain film préféré
+</h1>
 
-              <div class="muted small" data-i18n="example.text">
-                Ensuite l’utilisateur peut noter le film, évaluer la recommandation et laisser un commentaire.
-              </div>
-            </div>
-          </div>
-        </div>
+<p class="lead">
+Entre un film que tu aimes et Lumina te proposera des recommandations similaires basées sur les genres, acteurs et thèmes.
+</p>
 
-      </div>
-    </section>
+<a class="btn btn--primary" href="search.html">
+Commencer la recherche
+</a>
 
-    <section class="section">
-      <div class="container">
-        <div class="note">
-          <div class="note__title" data-i18n="home.noteTitle">Prêt à tester ?</div>
-          <div class="note__body muted" data-i18n="home.noteBody">
-            Va sur la page Recherche pour voir l’interface et les résultats mock.
-          </div>
-          <div style="margin-top:10px">
-            <a class="btn btn--primary" href="search.html" data-i18n="home.noteCta">Ouvrir Recherche</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+</div>
 
-  <footer class="footer">
-    <div class="container footer__inner">
-      <span class="muted small">©<span data-i18n="footer.brand">Lumina Film</span> — CSC 317</span>
-      <span class="muted small" data-i18n="footer.right">French creator</span>
-    </div>
-  </footer>
+</section>
+
+</main>
+
+<footer class="footer">
+
+<div class="container">
+© Lumina
+</div>
+
+</footer>
+
 </body>
 </html>
