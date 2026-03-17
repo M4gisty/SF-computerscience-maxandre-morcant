@@ -13,35 +13,28 @@
 
 </head>
 
-<body>
+<body class="page-home">
 
 <header class="header">
 
 <div class="container header__inner">
 
-<a class="logo" href="index.html">
-Lumina
+<a class="brand" href="index.html">
+  <span class="brand__name">Lumina</span>
 </a>
 
 <nav class="nav">
-
-<a class="nav__link active" href="index.html">
-Accueil
-</a>
-
-<a class="nav__link" href="search.html">
-Recherche
-</a>
-
-<a class="nav__link" href="about.html">
-À propos
-</a>
-
-<a class="nav__link" href="login.html">
-Compte
-</a>
-
+  <a class="nav__link active" href="index.html" data-i18n="nav.home">Accueil</a>
+  <a class="nav__link" href="search.html" data-i18n="nav.search">Recherche</a>
+  <a class="nav__link" href="about.html" data-i18n="nav.about">À propos</a>
+  <a class="nav__link" href="login.html" data-i18n="auth.login">Compte</a>
 </nav>
+
+<div style="display:flex;align-items:center;gap:12px;">
+  <button class="btn btn--ghost" id="langBtn" type="button">
+    FR
+  </button>
+</div>
 
 </div>
 
@@ -53,16 +46,16 @@ Compte
 
 <div class="container">
 
-<h1>
-Découvre ton prochain film préféré
+<h1 data-i18n="hero.title">
+  Découvre ton prochain film préféré
 </h1>
 
-<p class="lead">
-Entre un film que tu aimes et Lumina te proposera des recommandations similaires basées sur les genres, acteurs et thèmes.
+<p class="lead" data-i18n="hero.lead">
+  Entre un film que tu aimes et Lumina te proposera des recommandations similaires basées sur les genres, acteurs et thèmes.
 </p>
 
-<a class="btn btn--primary" href="search.html">
-Commencer la recherche
+<a class="btn-glass" href="search.html" data-i18n="hero.cta.search">
+  Commencer...
 </a>
 
 </div>
@@ -74,7 +67,7 @@ Commencer la recherche
 <footer class="footer">
 
 <div class="container">
-© Lumina
+  © Lumina
 </div>
 
 </footer>

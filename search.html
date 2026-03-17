@@ -11,12 +11,9 @@
 <body class="page-search">
   <header class="header">
     <div class="container header__inner">
-      <a class="brand" href="index.html">
-        <span class="brand__icon"></span>
-        <span class="brand__text">
-          <span class="brand__name">Lumina</span>
-        </span>
-      </a>
+     <a class="brand" href="index.html">
+  <span class="brand__name">Lumina</span>
+</a>
 
       <nav class="nav">
         <a class="nav__link" href="index.html" data-i18n="nav.home">Accueil</a>
@@ -44,7 +41,6 @@
             <div class="card__header">
               <div>
                 <div class="card__title" data-i18n="search.title">Recherche</div>
-              <div class="card__subtitle" data-i18n="search.subtitle">Titre</div>
               </div>
             </div>
 
@@ -56,9 +52,8 @@
                 </div>
 
                 <div class="row">
-                  <button id="searchBtn" class="btn btn--primary" data-i18n="form.search">Rechercher</button>
-                  <button id="resetBtn" class="btn btn--ghost" data-i18n="form.reset">Reset</button>
-                  <span id="status" class="muted small"></span>
+                 <button id="searchBtn" type="button" class="btn-glass" data-i18n="form.search">Rechercher</button>
+                 <span id="status" class="muted small"></span>
                 </div>
               </div>
             </div>
@@ -68,14 +63,12 @@
             <div class="card__header">
               <div>
                 <div class="card__title" data-i18n="results.title">Résultats</div>
-                <div class="card__subtitle" data-i18n="results.subtitle">Cartes + score de similarité</div>
               </div>
             </div>
 
             <div class="card__body">
               <div id="results" class="results">
                 <div class="empty">
-                  <div class="empty__icon">🔎</div>
                   <div class="empty__title" data-i18n="results.emptyTitle">Lance une recherche</div>
                   <div class="muted small" data-i18n="results.emptyText">Tu verras ici des films recommandés.</div>
                 </div>

@@ -24,7 +24,7 @@ const I18N = {
     "hero.kicker": "Recommandations personnalisées",
     "hero.title": "Découvre des films similaires à ceux que tu aimes.",
     "hero.lead": "Tout commence par une simple recherche...",
-    "hero.cta.search": "Aller à la recherche",
+    "hero.cta.search": "Chercher...",
     "hero.cta.about": "À propos / Contact",
 
     "stats.interactions.title": "Interactions",
@@ -46,7 +46,7 @@ const I18N = {
     "home.noteCta": "Ouvrir Recherche",
 
     "demo.title": "Recherche",
-    "demo.subtitle": "Recherche fonctionnelle : les résultats viennent maintenant d’une API",
+    "demo.subtitle": "Recherche fonctionnelle",
 
     "search.title": "Recherche",
     "search.subtitle": "Titre",
@@ -150,7 +150,7 @@ const I18N = {
     "hero.kicker": "Personalized recommendations",
     "hero.title": "Discover movies similar to the ones you love.",
     "hero.lead": "It all starts with a simple search...",
-    "hero.cta.search": "Go to search",
+    "hero.cta.search": "Search...",
     "hero.cta.about": "About / Contact",
 
     "stats.interactions.title": "Interactions",
@@ -379,20 +379,16 @@ async function renderResults(query) {
     movies.forEach(m => {
       const row = document.createElement("div");
       row.className = "movie";
-      row.innerHTML = `
-        <div class="movie__meta">
-          <a href="movie.html?id=${m.id}" class="movie__title">${m.title}</a>
-          <div class="movie__sub">${m.overview || ''}</div>
-          <div class="movie__genres">${m.genres ? m.genres.join(', ') : ''}</div>
-        </div>
-        <div class="movie__poster">
-          ${m.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${m.poster_path}" alt="${m.title}" crossorigin="anonymous">` : ''}
-        </div>
-        <div class="movie__actions">
-          <span class="badge">${m.score ?? ''}%</span>
-          <button class="btn btn--ghost btn--small rateBtn">${lang==='fr' ? 'Noter' : 'Rate'}</button>
-        </div>
-      `;
+     row.innerHTML = `
+  <div class="movie__meta">
+    <a href="movie.html?id=${m.id}" class="movie__title">${m.title}</a>
+    <div class="movie__sub">${m.overview || ''}</div>
+    <div class="movie__genres">${m.genres ? m.genres.join(', ') : ''}</div>
+  </div>
+  <div class="movie__poster">
+    ${m.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${m.poster_path}" alt="${m.title}" crossorigin="anonymous">` : ''}
+  </div>
+`;
       results.appendChild(row);
     });
 
@@ -619,30 +615,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const status = document.getElementById("status");
   const q = document.getElementById("q");
 
-  if (searchBtn && resetBtn && q) {
-    renderEmptyResults();
+  if (searchBtn && q) {
+  renderEmptyResults();
 
-    searchBtn.addEventListener("click", async () => {
-      await renderResults(q.value);
-      if (status) {
-        status.textContent = getLang() === "fr" ? "Résultats mis à jour." : "Results updated.";
-        setTimeout(() => (status.textContent = ""), 1800);
-      }
-    });
+  searchBtn.addEventListener("click", async () => {
+    await renderResults(q.value);
+    if (status) {
+      status.textContent = getLang() === "fr" ? "Résultats mis à jour." : "Results updated.";
+      setTimeout(() => (status.textContent = ""), 1800);
+    }
+  });
 
-    resetBtn.addEventListener("click", () => {
-      q.value = "";
-
-      renderEmptyResults();
-
-      if (status) {
-        status.textContent = getLang() === "fr" ? "Formulaire réinitialisé." : "Form reset.";
-        setTimeout(() => (status.textContent = ""), 1800);
-      }
-    });
-
-    q.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") searchBtn.click();
-    });
-  }
+  q.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") searchBtn.click();
+  });
+}
 });
