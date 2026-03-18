@@ -157,17 +157,25 @@ TMDB_URL = 'https://api.themoviedb.org/3/search/movie'
 
 GENRE_MAP = {
     'Action': 28,
-    'Romance': 10749,
+    'Adventure': 12,
+    'Animation': 16,
+    'Comedy': 35,
+    'Crime': 80,
+    'Documentary': 99,
     'Drama': 18,
+    'Family': 10751,
+    'Fantasy': 14,
+    'History': 36,
+    'Horror': 27,
+    'Music': 10402,
+    'Mystery': 9648,
+    'Romance': 10749,
     'Science Fiction': 878,
+    'TV Movie': 10770,
     'Thriller': 53,
-    'Anime': 16,  
-    'Comédies': 35,
-    'Fantastique': 14,
-    'Horreur': 27,
-    'Documentaires': 99,
+    'War': 10752,
+    'Western': 37
 }
-
 
 GENRE_ID_TO_NAME = {v: k for k, v in GENRE_MAP.items()}
 
@@ -268,6 +276,50 @@ async def get_movie_details(movie_id: int, lang: str = 'en'):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+@app.get('/api/recent')
+async def get_recent_movies(lang: str = 'en'):
+    """Récupère les films les plus récents depuis TMDB."""
+    if not TMDB_KEY:
+        raise HTTPException(status_code=500, detail='TMDB not configured')
+
+    language = 'fr-FR' if lang == 'fr' else 'en-US'
+    url = 'https://api.themoviedb.org/3/discover/movie'
+
+    params = {
+        'api_key': TMDB_KEY,
+        'language': language,
+        'sort_by': 'release_date.desc',
+        'primary_release_date.lte': datetime.utcnow().strftime('%Y-%m-%d'),
+        'vote_count.gte': 50,
+        'include_adult': False,
+        'include_video': False,
+        'page': 1
+    }
+
+    try:
+        r = requests.get(url, params=params, timeout=5)
+        if r.status_code != 200:
+            raise HTTPException(status_code=502, detail='tmdb recent error')
+
+        data = r.json().get('results', [])
+
+        out = []
+        for m in data[:12]:
+            out.append({
+                'id': m.get('id'),
+                'title': m.get('title'),
+                'overview': m.get('overview', ''),
+                'poster_path': m.get('poster_path'),
+                'genres': [GENRE_ID_TO_NAME.get(gid, 'Unknown') for gid in m.get('genre_ids', [])],
+                'release_date': m.get('release_date'),
+                'score': int(m.get('vote_average', 0) * 10)
+            })
+
+        return out
+
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f'tmdb recent request failed: {str(e)}')
+
 
 @app.get('/api/search')
 async def search_movies(q: str = '', genre: str = '', mood: str = '', person: str = '', lang: str = 'en'):

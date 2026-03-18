@@ -2,21 +2,17 @@
 <html lang="fr">
 
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>Lumina</title>
 
 <link rel="stylesheet" href="styles.css">
 <script defer src="app.js"></script>
-
 </head>
 
 <body class="page-home">
 
 <header class="header">
-
 <div class="container header__inner">
 
 <a class="brand" href="index.html">
@@ -31,19 +27,16 @@
 </nav>
 
 <div style="display:flex;align-items:center;gap:12px;">
-  <button class="btn btn--ghost" id="langBtn" type="button">
-    FR
-  </button>
+  <button class="btn btn--ghost" id="langBtn" type="button">FR</button>
 </div>
 
 </div>
-
 </header>
 
 <main>
 
+<!-- HERO -->
 <section class="hero">
-
 <div class="container">
 
 <h1 data-i18n="hero.title">
@@ -51,25 +44,90 @@
 </h1>
 
 <p class="lead" data-i18n="hero.lead">
-  Entre un film que tu aimes et Lumina te proposera des recommandations similaires basées sur les genres, acteurs et thèmes.
+  Entre un film que tu aimes et Lumina te proposera des recommandations similaires.
 </p>
 
 <a class="btn-glass" href="search.html" data-i18n="hero.cta.search">
-  Commencer...
+  Chercher...
 </a>
 
 </div>
+</section>
 
+<!-- 🎬 FILMS RECENTS (DYNAMIQUE) -->
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <h2 data-i18n="home.recent.title">Films récents</h2>
+      <p class="muted" data-i18n="home.recent.subtitle">Les sorties les plus récentes à découvrir.</p>
+    </div>
+
+    <div id="recentMovies" class="grid grid--3"></div>
+  </div>
+</section>
+
+<!-- ⭐ CLASSIQUES -->
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <h2>Classiques incontournables</h2>
+      <p class="muted">Les films cultes à voir absolument.</p>
+    </div>
+
+    <div class="grid grid--3">
+
+      <div class="card movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg" class="movie-card__img" alt="The Dark Knight">
+        <div class="card__body">
+          <div class="card__title">The Dark Knight</div>
+        </div>
+      </div>
+
+      <div class="card movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg" class="movie-card__img" alt="Fight Club">
+        <div class="card__body">
+          <div class="card__title">Fight Club</div>
+        </div>
+      </div>
+
+      <div class="card movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg" class="movie-card__img" alt="Pulp Fiction">
+        <div class="card__body">
+          <div class="card__title">Pulp Fiction</div>
+        </div>
+      </div>
+
+      <div class="card movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/3bhkrj58Vtu7enYsRolD1fZdja1.jpg" class="movie-card__img" alt="The Godfather">
+        <div class="card__body">
+          <div class="card__title">The Godfather</div>
+        </div>
+      </div>
+
+      <div class="card movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/8VG8fDNiy50H4FedGwdSVUPoaJe.jpg" class="movie-card__img" alt="Inception">
+        <div class="card__body">
+          <div class="card__title">Inception</div>
+        </div>
+      </div>
+
+      <div class="card movie-card">
+        <img src="https://image.tmdb.org/t/p/w500/q6y0Go1tsGEsmtFryDOJo3dEmqu.jpg" class="movie-card__img" alt="The Shawshank Redemption">
+        <div class="card__body">
+          <div class="card__title">The Shawshank Redemption</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 </main>
 
 <footer class="footer">
-
 <div class="container">
   © Lumina
 </div>
-
 </footer>
 
 </body>

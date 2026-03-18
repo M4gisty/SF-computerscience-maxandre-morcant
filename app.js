@@ -1,4 +1,3 @@
-
 function getLang() {
   return localStorage.getItem("lumina_lang") || "fr";
 }
@@ -128,6 +127,11 @@ const I18N = {
 
     "footer.brand": "Lumina",
     "footer.right": "French creator",
+
+    "home.recent.title": "Films récents",
+    "home.recent.subtitle": "Les sorties les plus récentes à découvrir.",
+    "home.recent.error": "Erreur de chargement",
+    "home.recent.empty": "Aucun film récent trouvé."
   },
 
   en: {
@@ -254,14 +258,20 @@ const I18N = {
 
     "footer.brand": "Lumina",
     "footer.right": "French creator",
+
+    "home.recent.title": "Recent Movies",
+    "home.recent.subtitle": "Latest releases to discover.",
+    "home.recent.error": "Loading error",
+    "home.recent.empty": "No recent movies found."
   }
 };
+
 function applyLang(lang) {
   const dict = I18N[lang] || I18N.fr;
 
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
-    if (dict[key]) el.textContent = dict[key];
+    if (dict[key] !== undefined) el.textContent = dict[key];
   });
 
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
@@ -280,7 +290,6 @@ function applyLang(lang) {
   const langBtn = document.getElementById("langBtn");
   if (langBtn) langBtn.textContent = lang.toUpperCase();
 
-  // Set title depending on page
   const isHome = document.body.classList.contains("page-home");
   const isSearch = document.body.classList.contains("page-search");
   const isAbout = document.body.classList.contains("page-about");
@@ -298,9 +307,10 @@ function toggleLang() {
   const next = getLang() === "fr" ? "en" : "fr";
   applyLang(next);
 
-  // update mock results language if on search page
   const q = document.getElementById("q");
   if (q) renderResults(q.value);
+
+  loadRecentMovies();
 }
 
 // ==========================
@@ -332,9 +342,67 @@ function initSplash() {
 }
 
 // ==========================
+// Home recent movies
+// ==========================
+async function loadRecentMovies() {
+  const container = document.getElementById("recentMovies");
+  if (!container) return;
+
+  const dict = I18N[getLang()] || I18N.fr;
+  container.innerHTML = `<div class="empty">…</div>`;
+
+  try {
+    const res = await fetch(`http://localhost:8001/api/recent?lang=${getLang()}`);
+    if (!res.ok) throw new Error("recent failed");
+
+    const movies = await res.json();
+
+    if (!Array.isArray(movies) || movies.length === 0) {
+      container.innerHTML = `
+        <div class="empty">
+          <div class="empty__title">${dict["home.recent.empty"]}</div>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = "";
+
+    movies.slice(0, 6).forEach(m => {
+      const card = document.createElement("a");
+      card.className = "card movie-card";
+      card.href = `movie.html?id=${m.id}`;
+      card.style.textDecoration = "none";
+      card.style.color = "inherit";
+
+      const poster = m.poster_path
+        ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
+        : "";
+
+      card.innerHTML = `
+        ${poster ? `<img class="movie-card__img" src="${poster}" alt="${m.title}" crossorigin="anonymous">` : ""}
+        <div class="card__body">
+          <div class="card__title">${m.title || ""}</div>
+          <div class="card__subtitle">${m.release_date || ""}</div>
+          <div class="movie__genres">${Array.isArray(m.genres) ? m.genres.join(", ") : ""}</div>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  } catch (err) {
+    console.error("loadRecentMovies error:", err);
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty__title">${dict["home.recent.error"]}</div>
+      </div>
+    `;
+  }
+}
+
+// ==========================
 // Search rendering helpers
 // ==========================
-
 function renderEmptyResults() {
   const results = document.getElementById("results");
   if (!results) return;
@@ -359,13 +427,12 @@ async function renderResults(query) {
     return;
   }
 
-  results.innerHTML = '<div class="empty">…</div>'; // show loading indicator
+  results.innerHTML = '<div class="empty">…</div>';
 
   try {
-    const url = `http://localhost:8001/api/search?q=${encodeURIComponent(query)}` +
-                `&lang=${getLang()}`;
+    const url = `http://localhost:8001/api/search?q=${encodeURIComponent(query)}&lang=${getLang()}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error('search failed');
+    if (!res.ok) throw new Error("search failed");
     const movies = await res.json();
 
     if (movies.length === 0) {
@@ -373,58 +440,67 @@ async function renderResults(query) {
       return;
     }
 
-    results.innerHTML = '';
+    results.innerHTML = "";
     const lang = getLang();
 
     movies.forEach(m => {
       const row = document.createElement("div");
       row.className = "movie";
-     row.innerHTML = `
-  <div class="movie__meta">
-    <a href="movie.html?id=${m.id}" class="movie__title">${m.title}</a>
-    <div class="movie__sub">${m.overview || ''}</div>
-    <div class="movie__genres">${m.genres ? m.genres.join(', ') : ''}</div>
-  </div>
-  <div class="movie__poster">
-    ${m.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${m.poster_path}" alt="${m.title}" crossorigin="anonymous">` : ''}
-  </div>
-`;
+      row.innerHTML = `
+        <div class="movie__meta">
+          <a href="movie.html?id=${m.id}" class="movie__title">${m.title}</a>
+          <div class="movie__sub">${m.overview || ""}</div>
+          <div class="movie__genres">${m.genres ? m.genres.join(", ") : ""}</div>
+        </div>
+        <div class="movie__poster">
+          ${m.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${m.poster_path}" alt="${m.title}" crossorigin="anonymous">` : ""}
+        </div>
+        <div class="movie__actions">
+          <span class="badge">${m.score ?? ""}%</span>
+          <button class="btn btn--ghost btn--small rateBtn">${lang === "fr" ? "Noter" : "Rate"}</button>
+        </div>
+      `;
       results.appendChild(row);
     });
 
-    // attach rating handlers as before
-    document.querySelectorAll('.rateBtn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const movieEl = e.target.closest('.movie');
-        const title = movieEl.querySelector('.movie__title').textContent;
+    document.querySelectorAll(".rateBtn").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const movieEl = e.target.closest(".movie");
+        const title = movieEl.querySelector(".movie__title").textContent;
         rateMovie(title);
       });
     });
   } catch (err) {
     console.error(err);
-    results.innerHTML = '<p class="error">' + (getLang()==='fr' ? 'Erreur de recherche' : 'Search error') + '</p>';
+    results.innerHTML = '<p class="error">' + (getLang() === "fr" ? "Erreur de recherche" : "Search error") + "</p>";
   }
 }
 
 async function rateMovie(title) {
-  const scoreStr = prompt(getLang() === 'fr' ? 'Donne une note de 1 à 5 (étoiles)' : 'Give a rating 1-5 (stars)');
+  const scoreStr = prompt(getLang() === "fr" ? "Donne une note de 1 à 5 (étoiles)" : "Give a rating 1-5 (stars)");
   if (!scoreStr) return;
   const score = parseInt(scoreStr, 10);
-  if (!score || score < 1 || score > 5) { alert(getLang() === 'fr' ? 'Note invalide (1-5)' : 'Invalid rating (1-5)'); return; }
-  const comment = prompt(getLang() === 'fr' ? 'Commentaire (optionnel)' : 'Comment (optional)') || '';
+  if (!score || score < 1 || score > 5) {
+    alert(getLang() === "fr" ? "Note invalide (1-5)" : "Invalid rating (1-5)");
+    return;
+  }
+  const comment = prompt(getLang() === "fr" ? "Commentaire (optionnel)" : "Comment (optional)") || "";
   try {
-    const res = await fetch('http://localhost:8001/api/ratings', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({movie_title: title, score, comment})});
+    const res = await fetch("http://localhost:8001/api/ratings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ movie_title: title, score, comment })
+    });
     if (!res.ok) {
-      const j = await res.json().catch(()=>({detail:'error'}));
-      alert(j.detail || (getLang()==='fr' ? 'Erreur lors de l\'enregistrement' : 'Save error'));
+      const j = await res.json().catch(() => ({ detail: "error" }));
+      alert(j.detail || (getLang() === "fr" ? "Erreur lors de l'enregistrement" : "Save error"));
       return;
     }
-    const j = await res.json();
-    const status = document.getElementById('status');
-    if (status) status.textContent = getLang() === 'fr' ? 'Note enregistrée.' : 'Rating saved.';
-    setTimeout(() => { if (status) status.textContent = ''; }, 1800);
+    const status = document.getElementById("status");
+    if (status) status.textContent = getLang() === "fr" ? "Note enregistrée." : "Rating saved.";
+    setTimeout(() => { if (status) status.textContent = ""; }, 1800);
   } catch (err) {
-    alert(getLang() === 'fr' ? 'Erreur réseau' : 'Network error');
+    alert(getLang() === "fr" ? "Erreur réseau" : "Network error");
   }
 }
 
@@ -445,44 +521,41 @@ function initContact() {
 // ==========================
 // Simple client-side auth (mock)
 // ==========================
-
 function _getUsers() {
-  try { return JSON.parse(localStorage.getItem('lumina_users') || '[]'); }
+  try { return JSON.parse(localStorage.getItem("lumina_users") || "[]"); }
   catch (e) { return []; }
 }
 
 function _saveUsers(users) {
-  localStorage.setItem('lumina_users', JSON.stringify(users));
+  localStorage.setItem("lumina_users", JSON.stringify(users));
 }
 
 function _currentUser() {
-  try { return JSON.parse(localStorage.getItem('lumina_user') || 'null'); }
+  try { return JSON.parse(localStorage.getItem("lumina_user") || "null"); }
   catch (e) { return null; }
 }
 
 function _setCurrentUser(u) {
-  if (!u) localStorage.removeItem('lumina_user');
-  else localStorage.setItem('lumina_user', JSON.stringify(u));
+  if (!u) localStorage.removeItem("lumina_user");
+  else localStorage.setItem("lumina_user", JSON.stringify(u));
 }
 
 async function _hash(pwd) {
-  // Prefer real digest when available; falls back to btoa for compatibility.
-  const s = String(pwd || '');
+  const s = String(pwd || "");
   if (window.crypto && window.crypto.subtle && window.TextEncoder) {
     const enc = new TextEncoder();
     const data = enc.encode(s);
-    const hash = await window.crypto.subtle.digest('SHA-256', data);
-    // convert to hex
-    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2,'0')).join('');
+    const hash = await window.crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
   }
   return btoa(s);
 }
 
 async function signupUser(email, name, pwd) {
-  email = String(email || '').trim().toLowerCase();
-  name = String(name || '').trim();
+  email = String(email || "").trim().toLowerCase();
+  name = String(name || "").trim();
   const users = _getUsers();
-  if (users.find(u => u.email === email)) return { ok: false, msg: 'exists' };
+  if (users.find(u => u.email === email)) return { ok: false, msg: "exists" };
   const hpwd = await _hash(pwd);
   const u = { email, name, pwd: hpwd };
   users.push(u);
@@ -492,7 +565,7 @@ async function signupUser(email, name, pwd) {
 }
 
 async function loginUser(email, pwd) {
-  email = String(email || '').trim().toLowerCase();
+  email = String(email || "").trim().toLowerCase();
   const users = _getUsers();
   const h = await _hash(pwd);
   const found = users.find(u => u.email === email && u.pwd === h);
@@ -519,17 +592,17 @@ function updateProfile(name) {
 }
 
 function updateHeaderAuthUI() {
-  const a = document.getElementById('accountLink');
+  const a = document.getElementById("accountLink");
   if (!a) return;
   const cur = _currentUser();
   if (cur) {
-    a.setAttribute('data-i18n','account.title');
-    a.href = 'account.html';
+    a.setAttribute("data-i18n", "account.title");
+    a.href = "account.html";
   } else {
-    a.setAttribute('data-i18n','auth.login');
-    a.href = 'login.html';
+    a.setAttribute("data-i18n", "auth.login");
+    a.href = "login.html";
   }
-  if (typeof applyLang === 'function') applyLang(getLang());
+  if (typeof applyLang === "function") applyLang(getLang());
 }
 
 // ==========================
@@ -544,78 +617,73 @@ document.addEventListener("DOMContentLoaded", () => {
   initSplash();
   initContact();
   updateHeaderAuthUI();
+  loadRecentMovies();
 
-  // Auth page / account wiring
-  const authForm = document.getElementById('authForm');
-  if (authForm && authForm.getAttribute('data-backend') !== 'true') {
-    authForm.addEventListener('submit', async (e) => {
+  const authForm = document.getElementById("authForm");
+  if (authForm && authForm.getAttribute("data-backend") !== "true") {
+    authForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const emailEl = document.getElementById('authEmail') || {};
-      const pwdEl = document.getElementById('authPassword') || {};
-      const nameEl = document.getElementById('authName') || {};
-      const email = String(emailEl.value || '').trim();
-      const pwd = String(pwdEl.value || '');
-      const name = String(nameEl.value || '').trim();
-      const mode = authForm.getAttribute('data-mode') || 'login';
-      if (mode === 'signup') {
+      const emailEl = document.getElementById("authEmail") || {};
+      const pwdEl = document.getElementById("authPassword") || {};
+      const nameEl = document.getElementById("authName") || {};
+      const email = String(emailEl.value || "").trim();
+      const pwd = String(pwdEl.value || "");
+      const name = String(nameEl.value || "").trim();
+      const mode = authForm.getAttribute("data-mode") || "login";
+      if (mode === "signup") {
         const res = await signupUser(email, name, pwd);
-        if (res.ok) location.href = 'account.html';
-        else alert(getLang() === 'fr' ? 'Utilisateur existant' : 'User already exists');
+        if (res.ok) location.href = "account.html";
+        else alert(getLang() === "fr" ? "Utilisateur existant" : "User already exists");
       } else {
         const res = await loginUser(email, pwd);
-        if (res.ok) location.href = 'account.html';
-        else alert(getLang() === 'fr' ? 'Email ou mot de passe incorrect' : 'Bad credentials');
+        if (res.ok) location.href = "account.html";
+        else alert(getLang() === "fr" ? "Email ou mot de passe incorrect" : "Bad credentials");
       }
     });
   }
 
-  // Try to get current user from server (cookie-based session).
-  fetch('http://localhost:8001/api/me')
+  fetch("http://localhost:8001/api/me")
     .then(r => r.ok ? r.json() : Promise.reject(r))
     .then(u => {
       if (u && u.email) {
-        localStorage.setItem('lumina_user', JSON.stringify({email: u.email, name: u.name}));
+        localStorage.setItem("lumina_user", JSON.stringify({ email: u.email, name: u.name }));
       }
       updateHeaderAuthUI();
     })
-    .catch(()=>{
-      // no valid session
-      localStorage.removeItem('lumina_user');
+    .catch(() => {
+      localStorage.removeItem("lumina_user");
       updateHeaderAuthUI();
     });
 
-  const logoutBtn = document.getElementById('logoutBtn');
+  const logoutBtn = document.getElementById("logoutBtn");
   if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
+    logoutBtn.addEventListener("click", () => {
       logoutUser();
-      location.href = 'index.html';
+      location.href = "index.html";
     });
   }
 
-  // Account page: populate profile
-  if (document.body.classList.contains('page-account')) {
+  if (document.body.classList.contains("page-account")) {
     const cur = _currentUser();
-    const nameEl = document.getElementById('profileName');
-    const emailEl = document.getElementById('profileEmail');
-    if (cur && nameEl) nameEl.value = cur.name || '';
-    if (cur && emailEl) emailEl.textContent = cur.email || '';
-    const saveBtn = document.getElementById('saveProfile');
+    const nameEl = document.getElementById("profileName");
+    const emailEl = document.getElementById("profileEmail");
+    if (cur && nameEl) nameEl.value = cur.name || "";
+    if (cur && emailEl) emailEl.textContent = cur.email || "";
+    const saveBtn = document.getElementById("saveProfile");
     if (saveBtn) {
-      saveBtn.addEventListener('click', () => {
-        const newName = (document.getElementById('profileName') || {}).value || '';
-        if (updateProfile(newName)) alert(getLang() === 'fr' ? 'Profil mis à jour' : 'Profile updated');
+      saveBtn.addEventListener("click", () => {
+        const newName = (document.getElementById("profileName") || {}).value || "";
+        if (updateProfile(newName)) alert(getLang() === "fr" ? "Profil mis à jour" : "Profile updated");
         updateHeaderAuthUI();
       });
     }
   }
 
-  // Search page controls
-  const searchBtn = document.getElementById("searchBtn");
-  const resetBtn = document.getElementById("resetBtn");
-  const status = document.getElementById("status");
-  const q = document.getElementById("q");
+ const searchBtn = document.getElementById("searchBtn");
+const status = document.getElementById("status");
+const q = document.getElementById("q");
 
-  if (searchBtn && q) {
+if (searchBtn && q) {
   renderEmptyResults();
 
   searchBtn.addEventListener("click", async () => {
@@ -627,7 +695,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   q.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") searchBtn.click();
+    if (e.key === "Enter") {
+      e.preventDefault();
+      searchBtn.click();
+    }
   });
 }
 });
