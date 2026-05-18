@@ -157,11 +157,11 @@
       <nav class="nav">
         <a class="nav__link" href="index.html" data-i18n="nav.home">Accueil</a>
         <a class="nav__link" href="search.html" data-i18n="nav.search">Recherche</a>
-        <a class="nav__link" href="about.html" data-i18n="nav.about">À propos</a>
+        <a class="nav__link" href="about.html" data-i18n="nav.about">À propos / Contact</a>
         <a class="nav__link" id="accountLink" href="login.html" data-i18n="auth.login">Se connecter</a>
       </nav>
 
-      <button class="btn btn--ghost" id="langBtn" type="button">FR</button>
+      <button class="btn btn--ghost" id="langBtn" type="button" data-i18n-aria-label="button.langChange" aria-label="Changer la langue">FR</button>
     </div>
   </header>
 
@@ -186,15 +186,16 @@
       const urlParams = new URLSearchParams(window.location.search);
       const movieId = urlParams.get("id");
       const movieDetails = document.getElementById("movieDetails");
+      const dict = I18N[getLang()] || I18N.fr;
 
       if (!movieId) {
-        movieDetails.innerHTML = '<div class="movie-fallback"><p>Film non trouvé.</p></div>';
+        movieDetails.innerHTML = `<div class="movie-fallback"><p>${dict["movie.notFound"]}</p></div>`;
         return;
       }
 
       try {
         const res = await fetch(`http://localhost:8001/api/movie/${movieId}?lang=${getLang()}`);
-        if (!res.ok) throw new Error("Erreur de chargement");
+        if (!res.ok) throw new Error(dict["movie.loadError"]);
         const movie = await res.json();
 
         const poster = movie.poster_path
@@ -207,45 +208,45 @@
               <div class="movie-poster-wrap">
                 ${poster
                   ? `<img src="${poster}" alt="${movie.title}" class="movie-poster-large" crossorigin="anonymous">`
-                  : `<div class="movie-fallback">Aucune affiche</div>`}
+                  : `<div class="movie-fallback">${dict["movie.noPoster"]}</div>`}
               </div>
 
               <div class="movie-content">
                 <div class="movie-top">
-                  <h1>${movie.title || "Titre inconnu"}</h1>
+                  <h1>${movie.title || dict["movie.unknownTitle"]}</h1>
 
                   <div class="movie-meta">
-                    ${movie.release_date ? `<span class="movie-chip"><strong>Sortie :</strong>&nbsp;${movie.release_date}</span>` : ""}
-                    ${movie.vote_average ? `<span class="movie-chip"><strong>Note :</strong>&nbsp;${movie.vote_average}/10</span>` : ""}
-                    ${movie.genres?.length ? `<span class="movie-chip"><strong>Genres :</strong>&nbsp;${movie.genres.join(", ")}</span>` : ""}
+                    ${movie.release_date ? `<span class="movie-chip"><strong>${dict["movie.release"]}</strong>&nbsp;${movie.release_date}</span>` : ""}
+                    ${movie.vote_average ? `<span class="movie-chip"><strong>${dict["movie.rating"]}</strong>&nbsp;${movie.vote_average}/10</span>` : ""}
+                    ${movie.genres?.length ? `<span class="movie-chip"><strong>${dict["movie.genres"]}</strong>&nbsp;${movie.genres.join(", ")}</span>` : ""}
                   </div>
 
                   <div class="movie-overview">
-                    ${movie.overview || "Pas de description disponible."}
+                    ${movie.overview || dict["movie.noDescription"]}
                   </div>
                 </div>
 
                 <div class="movie-grid">
                   <div class="movie-block">
-                    <h2>Acteurs principaux</h2>
-                    <p>${movie.cast?.length ? movie.cast.join(", ") : "Information non disponible."}</p>
+                    <h2>${dict["movie.cast"]}</h2>
+                    <p>${movie.cast?.length ? movie.cast.join(", ") : dict["movie.noInfo"]}</p>
                   </div>
 
                   <div class="movie-block">
-                    <h2>Réalisateur</h2>
-                    <p>${movie.director || "Information non disponible."}</p>
+                    <h2>${dict["movie.director"]}</h2>
+                    <p>${movie.director || dict["movie.noInfo"]}</p>
                   </div>
 
                   <div class="movie-block">
-                    <h2>Où regarder</h2>
-                    <p>${movie.watch_providers?.length ? movie.watch_providers.join(", ") : "Aucune plateforme indiquée."}</p>
+                    <h2>${dict["movie.watchProviders"]}</h2>
+                    <p>${movie.watch_providers?.length ? movie.watch_providers.join(", ") : dict["movie.noProviders"]}</p>
                   </div>
 
                   <div class="movie-block">
-                    <h2>Actions</h2>
+                    <h2>${dict["movie.actions"]}</h2>
                     <div class="movie-actions">
-                      ${movie.trailer ? `<a class="movie-link" href="${movie.trailer}" target="_blank" rel="noopener noreferrer">▶ Voir le trailer</a>` : ""}
-                      <a class="movie-link" href="search.html">🔍 Retour à la recherche</a>
+                      ${movie.trailer ? `<a class="movie-link" href="${movie.trailer}" target="_blank" rel="noopener noreferrer">${dict["movie.trailer"]}</a>` : ""}
+                      <a class="movie-link" href="search.html">${dict["movie.backSearch"]}</a>
                     </div>
                   </div>
                 </div>
@@ -254,7 +255,7 @@
           </div>
         `;
       } catch (err) {
-        movieDetails.innerHTML = '<div class="movie-fallback"><p>Erreur lors du chargement du film.</p></div>';
+        movieDetails.innerHTML = `<div class="movie-fallback"><p>${dict["movie.loadError"]}</p></div>`;
       }
     });
   </script>

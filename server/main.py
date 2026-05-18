@@ -14,7 +14,8 @@ from jose import jwt
 from authlib.integrations.starlette_client import OAuth
 from dotenv import load_dotenv
 
-load_dotenv('../.env')
+env_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(env_path)
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'devsecret')
 FRONTEND_URL = os.getenv('FRONTEND_URL', 'http://localhost:8000')
@@ -567,3 +568,36 @@ async def await_req_json(req: Request):
 if __name__ == '__main__':
     import uvicorn
     uvicorn.run('main:app', host='0.0.0.0', port=8001, reload=True)
+
+@app.get('/api/trending')
+async def get_trending_movies(lang: str = 'en'):
+    if not TMDB_KEY:
+        raise HTTPException(status_code=500, detail='TMDB not configured')
+
+    language = 'fr-FR' if lang == 'fr' else 'en-US'
+    url = 'https://api.themoviedb.org/3/trending/movie/week'
+
+    params = {
+        'api_key': TMDB_KEY,
+        'language': language
+    }
+
+    try:
+        r = requests.get(url, params=params, timeout=5)
+        if r.status_code != 200:
+            raise HTTPException(status_code=502, detail='tmdb trending error')
+
+        data = r.json().get('results', [])
+
+        return [{
+            'id': m.get('id'),
+            'title': m.get('title'),
+            'overview': m.get('overview', ''),
+            'poster_path': m.get('poster_path'),
+            'genres': [GENRE_ID_TO_NAME.get(gid, '') for gid in m.get('genre_ids', [])],
+            'release_date': m.get('release_date'),
+            'score': int(m.get('vote_average', 0) * 10)
+        } for m in data[:12]]
+
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e))

@@ -26,7 +26,7 @@
   <a class="nav__link active" id="accountLink" href="login.html" data-i18n="auth.login">Se connecter</a>
 </nav>
 
-<button class="btn btn--ghost" id="langBtn" type="button">FR</button>
+<button class="btn btn--ghost" id="langBtn" type="button" data-i18n-aria-label="button.langChange">FR</button>
 
 
   </div>
@@ -110,7 +110,8 @@
           <a
             id="googleBtn"
             class="btn btn--ghost"
-            href="/api/auth/google">
+            href="http://localhost:8001/api/auth/google"
+            data-i18n="auth.googleSignin">
             Se connecter avec Google
           </a>
         </div>
@@ -174,10 +175,11 @@
       const name = (document.getElementById('authName')||{}).value || '';
 
       try {
-        const url = mode === 'signup' ? '/api/signup' : '/api/login';
+        const url = mode === 'signup' ? 'http://localhost:8001/api/signup' : 'http://localhost:8001/api/login';
 
         const res = await fetch(url,{
           method:'POST',
+          credentials:'include',
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({email,password:pwd,name})
         });

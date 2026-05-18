@@ -8,130 +8,94 @@ const I18N = {
     titleSearch: "Lumina — Recherche",
     titleAbout: "Lumina — À propos / Contact",
 
-    "brand.tag": "Prototype",
-
     "nav.home": "Accueil",
     "nav.search": "Recherche",
     "nav.about": "À propos / Contact",
-    "nav.account": "Compte",
+    "auth.login": "Se connecter",
 
-    "splash.tag": "Recommandations personnalisées",
-    "splash.text": "Découvre des films similaires à ceux que tu aimes, et aide l’algorithme avec tes retours.",
-    "splash.enter": "Entrer",
-    "splash.hint": "Projet CSC 317 • Prototype UI",
-
-    "hero.kicker": "Recommandations personnalisées",
     "hero.title": "Découvre des films similaires à ceux que tu aimes.",
     "hero.lead": "Tout commence par une simple recherche...",
     "hero.cta.search": "Chercher...",
-    "hero.cta.about": "À propos / Contact",
 
-    "stats.interactions.title": "Interactions",
-    "stats.interactions.value": "Recherche • Notes • Commentaires",
-    "stats.data.title": "Données",
-    "stats.data.value": "Films • Utilisateurs • Historique",
-    "stats.goal.title": "But",
-    "stats.goal.value": "Découverte + pertinence",
+    "form.search": "Rechercher",
 
-    "example.title": "Exemple",
-    "example.subtitle": "Aperçu d’une recommandation",
-    "example.liked": "Film aimé :",
-    "example.movieSub": "Science-fiction • Thriller • Nolan",
-    "example.favTitle": "Ajouter aux favoris",
-    "example.text": "Ensuite l’utilisateur peut noter le film, évaluer la recommandation et laisser un commentaire.",
+    "results.emptyTitle": "Lance une recherche",
+    "results.emptyText": "Tu verras ici des films recommandés.",
+    "results.title": "Résultats",
+    "results.error": "Erreur de recherche",
 
-    "home.noteTitle": "Prêt à tester ?",
-    "home.noteBody": "Va sur la page Recherche pour voir l’interface et les résultats mock.",
-    "home.noteCta": "Ouvrir Recherche",
+    "home.recent.title": "Films récents",
+    "home.recent.subtitle": "Les sorties les plus récentes à découvrir.",
+    "home.recent.error": "Erreur de chargement",
+    "home.recent.empty": "Aucun film récent trouvé.",
+    
+    "home.trending.title": "Tendances du moment",
+    "home.trending.subtitle": "Les films populaires actuellement.",
+    "home.trending.error": "Erreur de chargement",
 
-    "demo.title": "Recherche",
-    "demo.subtitle": "Recherche fonctionnelle",
-
-    "search.title": "Recherche",
-    "search.subtitle": "Titre",
+    "home.classics.title": "Classiques incontournables",
+    "home.classics.subtitle": "Les films cultes à voir absolument.",
 
     "form.liked.label": "Film que tu as aimé",
     "form.liked.ph": "Ex : Inception, The Notebook, The Dark Knight...",
-    "form.genre.label": "Genre",
-    "form.genre.opt0": "(optionnel)",
-    "form.keyword.label": "Keyword",
-    "form.keyword.ph": "Ex : emotional, horror, superhero...",
-    "form.person.label": "Acteur / Réalisateur",
-    "form.person.ph": "Ex : Nolan, DiCaprio...",
-    "form.search": "Rechercher",
-    "form.reset": "Reset",
 
-    "results.title": "Résultats",
-    "results.subtitle": "Cartes + score de similarité",
-    "results.emptyTitle": "Lance une recherche",
-    "results.emptyText": "Tu verras ici des films recommandés.",
+    "auth.title": "Connexion / Inscription",
+    "auth.subtitle": "Prototype client-side auth (no backend)",
+    "auth.email": "Email",
+    "auth.emailPh": "votre@email.com",
+    "auth.name": "Nom",
+    "auth.namePh": "Votre nom",
+    "auth.password": "Mot de passe",
+    "auth.switchToSignup": "S'inscrire",
+    "auth.switchToLogin": "Se connecter",
+    "auth.signup": "S'inscrire",
+    "auth.googleSignin": "Se connecter avec Google",
+
+    "demo.title": "Recherche",
+    "search.title": "Recherche",
 
     "about.title": "À propos",
     "about.subtitle": "Le coeur du projet, et ses avancées prévues",
-
-    "about.data.title": "Données",
-    "about.data.li1": "Films (genres, keywords, cast/crew)",
-    "about.data.li2": "Utilisateurs (profil + préférences)",
-    "about.data.li3": "Notes & commentaires",
-    "about.data.li4": "Historique de recommandations",
-
-    "about.algo.title": "Algorithme",
-    "about.algo.li1": "Genre (pondération forte)",
-    "about.algo.li2": "Keywords",
-    "about.algo.li3": "Acteurs / réalisateur",
-    "about.algo.li4": "Ajustement par feedback",
-
-    "about.next.title": "Next steps",
+    "site.summary.title": "Résumé du site",
+    "site.summary.text": "Lumina est une plateforme de recommandation de films intelligente. Entrez le nom d'un film que vous avez aimé, et découvrez des films similaires. Explorez les détails des films, regardez les trailers, et trouvez où les regarder en streaming.",
+    "contact.title": "Contact",
+    "contact.text": "Pour toute question, suggestion ou retour, contactez-moi :",
+    "contact.email": "Email :",
+    "contact.open": "Je suis ouvert aux commentaires pour améliorer Lumina Film !",
+    "about.next.title": "Prochaines étapes",
     "about.next.li1": "Brancher une API de films",
     "about.next.li2": "Ajouter un backend + DB",
     "about.next.li3": "Authentification (optionnel)",
     "about.next.li4": "Améliorer le scoring",
 
-    "contact.title": "Me contacter",
-    "contact.subtitle": "Envoie un message (UI)",
-    "contact.name": "Nom",
-    "contact.namePh": "Ton nom",
-    "contact.email": "Email",
-    "contact.emailPh": "tonmail@email.com",
-    "contact.msg": "Message",
-    "contact.msgPh": "Ton message...",
-    "contact.send": "Envoyer",
-    "contact.note": "(Pour l’instant, ça ne fait pas d’envoi réel — on pourra le brancher plus tard.)",
+    "footer.brand": "Lumina",
+    "footer.right": "Créateur français",
 
-    "site.summary.title": "Résumé du site",
-    "site.summary.text": "Lumina est une plateforme de recommandation de films intelligente. Entrez le nom d'un film que vous avez aimé, et découvrez des films similaires basés sur des données réelles de The Movie Database (TMDB). Explorez les détails des films, regardez les trailers, et trouvez où les regarder en streaming.",
-    "site.summary.text2": "Ce prototype a été développé dans le cadre du cours CSC 317, utilisant des technologies web modernes pour offrir une expérience utilisateur fluide.",
+    "button.langChange": "Changer la langue",
+    "button.toggleMenu": "Ouvrir le menu",
 
-    "contact.title": "Contact",
-    "contact.text": "Pour toute question, suggestion ou retour, contactez-moi :",
-    "contact.email": "Email :",
-    "contact.open": "Je suis ouvert aux commentaires pour améliorer Lumina !",
-
-    "auth.title": "Connexion / Inscription",
-    "auth.subtitle": "Prototype client-side auth (no backend)",
-    "titleLogin": "Lumina — Connexion",
-    "auth.email": "Email",
-    "auth.emailPh": "tonmail@email.com",
-    "auth.name": "Nom",
-    "auth.namePh": "Ton nom",
-    "auth.password": "Mot de passe",
-    "auth.login": "Se connecter",
-    "auth.signup": "S'inscrire",
-    "auth.switchToSignup": "S'inscrire",
-    "auth.switchToLogin": "Déjà inscrit ? Se connecter",
     "account.title": "Mon compte",
     "account.subtitle": "Gérer votre profil",
-    "titleAccount": "Lumina — Mon compte",
     "account.logout": "Se déconnecter",
     "account.save": "Enregistrer",
 
-    "footer.brand": "Lumina",
-    "footer.right": "French creator",
-
-    "home.recent.title": "Films récents",
-    "home.recent.subtitle": "Les sorties les plus récentes à découvrir.",
-    "home.recent.error": "Erreur de chargement",
-    "home.recent.empty": "Aucun film récent trouvé."
+    "movie.loading": "Chargement...",
+    "movie.notFound": "Film non trouvé.",
+    "movie.loadError": "Erreur de chargement",
+    "movie.noPoster": "Aucune affiche",
+    "movie.unknownTitle": "Titre inconnu",
+    "movie.release": "Sortie :",
+    "movie.rating": "Note :",
+    "movie.genres": "Genres :",
+    "movie.noDescription": "Pas de description disponible.",
+    "movie.cast": "Acteurs principaux",
+    "movie.director": "Réalisateur",
+    "movie.watchProviders": "Où regarder",
+    "movie.actions": "Actions",
+    "movie.noInfo": "Information non disponible.",
+    "movie.noProviders": "Aucune plateforme indiquée.",
+    "movie.trailer": "▶ Voir le trailer",
+    "movie.backSearch": "🔍 Retour à la recherche"
   },
 
   en: {
@@ -139,130 +103,94 @@ const I18N = {
     titleSearch: "Lumina — Search",
     titleAbout: "Lumina — About / Contact",
 
-    "brand.tag": "Prototype",
-
     "nav.home": "Home",
     "nav.search": "Search",
     "nav.about": "About / Contact",
-    "nav.account": "Account",
+    "auth.login": "Sign in",
 
-    "splash.tag": "Personalized recommendations",
-    "splash.text": "Discover movies similar to the ones you love, and improve the algorithm with your feedback.",
-    "splash.enter": "Enter",
-    "splash.hint": "CSC 317 Project • UI Prototype",
-
-    "hero.kicker": "Personalized recommendations",
     "hero.title": "Discover movies similar to the ones you love.",
     "hero.lead": "It all starts with a simple search...",
     "hero.cta.search": "Search...",
-    "hero.cta.about": "About / Contact",
 
-    "stats.interactions.title": "Interactions",
-    "stats.interactions.value": "Search • Ratings • Comments",
-    "stats.data.title": "Data",
-    "stats.data.value": "Movies • Users • History",
-    "stats.goal.title": "Goal",
-    "stats.goal.value": "Discovery + relevance",
-
-    "example.title": "Example",
-    "example.subtitle": "Recommendation preview",
-    "example.liked": "Liked movie:",
-    "example.movieSub": "Sci-Fi • Thriller • Nolan",
-    "example.favTitle": "Add to favorites",
-    "example.text": "Then the user can rate the movie, evaluate the recommendation, and leave a comment.",
-
-    "home.noteTitle": "Ready to try?",
-    "home.noteBody": "Go to the Search page to see the UI and mock results.",
-    "home.noteCta": "Open Search",
-
-    "demo.title": "Search",
-    "demo.subtitle": "Search is now live; results come from an API.",
-
-    "search.title": "Search",
-    "search.subtitle": "Title + filters",
-
-    "form.liked.label": "A movie you liked",
-    "form.liked.ph": "e.g., Inception, The Notebook, The Dark Knight...",
-    "form.genre.label": "Genre",
-    "form.genre.opt0": "(optional)",
-    "form.keyword.label": "Keyword",
-    "form.keyword.ph": "e.g., emotional, horror, superhero...",
-    "form.person.label": "Actor / Director",
-    "form.person.ph": "e.g., Nolan, DiCaprio...",
     "form.search": "Search",
-    "form.reset": "Reset",
 
-    "results.title": "Results",
-    "results.subtitle": "Cards + similarity score",
     "results.emptyTitle": "Run a search",
     "results.emptyText": "Recommended movies will appear here.",
+    "results.title": "Results",
+    "results.error": "Search error",
 
-    "about.title": "About",
-    "about.subtitle": "Project core and planned improvements",
+    "home.recent.title": "Recent Movies",
+    "home.recent.subtitle": "Latest releases",
+    "home.recent.error": "Loading error",
+    "home.recent.empty": "No movies found",
 
-    "about.data.title": "Data",
-    "about.data.li1": "Movies (genres, keywords, cast/crew)",
-    "about.data.li2": "Users (profile + preferences)",
-    "about.data.li3": "Ratings & comments",
-    "about.data.li4": "Recommendation history",
+    "home.trending.title": "Trending Now",
+    "home.trending.subtitle": "Popular movies right now.",
+    "home.trending.error": "Loading error",
 
-    "about.algo.title": "Algorithm",
-    "about.algo.li1": "Genre (high weight)",
-    "about.algo.li2": "Keywords",
-    "about.algo.li3": "Actors / director",
-    "about.algo.li4": "Adjusted via feedback",
+    "home.classics.title": "Must-Watch Classics",
+    "home.classics.subtitle": "Iconic films you must see.",
 
-    "about.next.title": "Next steps",
-    "about.next.li1": "Connect a movie API",
-    "about.next.li2": "Add a backend + DB",
-    "about.next.li3": "Authentication (optional)",
-    "about.next.li4": "Improve the scoring",
+    "form.liked.label": "Movie you liked",
+    "form.liked.ph": "E.g.: Inception, The Notebook, The Dark Knight...",
 
-    "contact.title": "Contact me",
-    "contact.subtitle": "Send a message (UI)",
-    "contact.name": "Name",
-    "contact.namePh": "Your name",
-    "contact.email": "Email",
-    "contact.emailPh": "you@email.com",
-    "contact.msg": "Message",
-    "contact.msgPh": "Your message...",
-    "contact.send": "Send",
-    "contact.note": "(For now, this doesn’t actually send — we can wire it later.)",
-
-    "site.summary.title": "Site Summary",
-    "site.summary.text": "Lumina is an intelligent movie recommendation platform. Enter the name of a movie you loved, and discover similar movies based on real data from The Movie Database (TMDB). Explore movie details, watch trailers, and find where to watch them on streaming.",
-    "site.summary.text2": "This prototype was developed as part of the CSC 317 course, using modern web technologies to provide a smooth user experience.",
-
-    "contact.title": "Contact",
-    "contact.text": "For any questions, suggestions, or feedback, contact me:",
-    "contact.email": "Email:",
-    "contact.open": "I am open to comments to improve Lumina!",
-
-    "auth.title": "Sign in / Sign up",
+    "auth.title": "Sign In / Sign Up",
     "auth.subtitle": "Prototype client-side auth (no backend)",
-    "titleLogin": "Lumina — Sign in",
     "auth.email": "Email",
-    "auth.emailPh": "you@email.com",
+    "auth.emailPh": "your@email.com",
     "auth.name": "Name",
     "auth.namePh": "Your name",
     "auth.password": "Password",
-    "auth.login": "Sign in",
-    "auth.signup": "Sign up",
-    "auth.switchToSignup": "Sign up",
-    "auth.switchToLogin": "Already registered? Sign in",
-    "account.title": "My account",
-    "account.subtitle": "Manage your profile",
-    "titleAccount": "Lumina — My account",
-    "account.logout": "Sign out",
-    "account.save": "Save",
+    "auth.switchToSignup": "Sign Up",
+    "auth.switchToLogin": "Sign In",
+    "auth.signup": "Sign Up",
+    "auth.googleSignin": "Sign in with Google",
+
+    "demo.title": "Search",
+    "search.title": "Search",
+
+    "about.title": "About",
+    "about.subtitle": "The heart of the project and planned improvements",
+    "site.summary.title": "Website Summary",
+    "site.summary.text": "Lumina is an intelligent movie recommendation platform. Enter the name of a movie you liked, and discover similar movies. Explore movie details, watch trailers, and find where to stream them.",
+    "contact.title": "Contact",
+    "contact.text": "For any questions, suggestions or feedback, contact me:",
+    "contact.email": "Email:",
+    "contact.open": "I'm open to feedback to improve Lumina Film!",
+    "about.next.title": "Next Steps",
+    "about.next.li1": "Connect a movie API",
+    "about.next.li2": "Add backend + DB",
+    "about.next.li3": "Authentication (optional)",
+    "about.next.li4": "Improve scoring algorithm",
 
     "footer.brand": "Lumina",
     "footer.right": "French creator",
 
-    "home.recent.title": "Recent Movies",
-    "home.recent.subtitle": "Latest releases to discover.",
-    "home.recent.error": "Loading error",
-    "home.recent.empty": "No recent movies found."
+    "button.langChange": "Change language",
+    "button.toggleMenu": "Open menu",
+
+    "account.title": "My Account",
+    "account.subtitle": "Manage your profile",
+    "account.logout": "Sign Out",
+    "account.save": "Save",
+
+    "movie.loading": "Loading...",
+    "movie.notFound": "Movie not found.",
+    "movie.loadError": "Loading error",
+    "movie.noPoster": "No poster",
+    "movie.unknownTitle": "Unknown title",
+    "movie.release": "Release:",
+    "movie.rating": "Rating:",
+    "movie.genres": "Genres:",
+    "movie.noDescription": "No description available.",
+    "movie.cast": "Main Cast",
+    "movie.director": "Director",
+    "movie.watchProviders": "Where to Watch",
+    "movie.actions": "Actions",
+    "movie.noInfo": "Information not available.",
+    "movie.noProviders": "No streaming platforms available.",
+    "movie.trailer": "▶ Watch Trailer",
+    "movie.backSearch": "🔍 Back to Search"
   }
 };
 
@@ -274,33 +202,39 @@ function applyLang(lang) {
     if (dict[key] !== undefined) el.textContent = dict[key];
   });
 
+  // Handle placeholders
   document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
     const key = el.getAttribute("data-i18n-placeholder");
-    if (dict[key]) el.setAttribute("placeholder", dict[key]);
+    if (dict[key] !== undefined) el.setAttribute("placeholder", dict[key]);
   });
 
-  document.querySelectorAll("[data-i18n-titleattr]").forEach(el => {
-    const key = el.getAttribute("data-i18n-titleattr");
-    if (dict[key]) el.setAttribute("title", dict[key]);
+  // Handle aria-label
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (dict[key] !== undefined) el.setAttribute("aria-label", dict[key]);
   });
+
+  // Update page title based on current page
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  if (currentPage === 'index.html' || currentPage === '') {
+    document.title = dict["titleHome"] || "Lumina";
+  } else if (currentPage === 'search.html') {
+    document.title = dict["titleSearch"] || "Lumina";
+  } else if (currentPage === 'about.html') {
+    document.title = dict["titleAbout"] || "Lumina";
+  } else if (currentPage === 'login.html') {
+    document.title = lang === 'en' ? "Lumina — Sign In" : "Lumina — Connexion";
+  } else if (currentPage === 'account.html') {
+    document.title = dict["account.title"] ? `Lumina — ${dict["account.title"]}` : "Lumina";
+  } else if (currentPage === 'movie.html') {
+    document.title = lang === 'en' ? "Lumina — Movie Details" : "Lumina — Détails du film";
+  }
 
   document.documentElement.lang = lang;
   localStorage.setItem("lumina_lang", lang);
 
   const langBtn = document.getElementById("langBtn");
   if (langBtn) langBtn.textContent = lang.toUpperCase();
-
-  const isHome = document.body.classList.contains("page-home");
-  const isSearch = document.body.classList.contains("page-search");
-  const isAbout = document.body.classList.contains("page-about");
-  const isLogin = document.body.classList.contains("page-login");
-  const isAccount = document.body.classList.contains("page-account");
-
-  if (isHome) document.title = dict.titleHome;
-  else if (isSearch) document.title = dict.titleSearch;
-  else if (isAbout) document.title = dict.titleAbout;
-  else if (isLogin) document.title = dict.titleLogin || dict.titleHome;
-  else if (isAccount) document.title = dict.titleAccount || dict.titleHome;
 }
 
 function toggleLang() {
@@ -311,111 +245,55 @@ function toggleLang() {
   if (q) renderResults(q.value);
 
   loadRecentMovies();
+  loadTrendingMovies(); 
 }
 
 // ==========================
-// Splash screen (only home)
-// ==========================
-function initSplash() {
-  if (!document.body.classList.contains("page-home")) return;
-
-  const splash = document.getElementById("splash");
-  const enterBtn = document.getElementById("enterBtn");
-  if (!splash || !enterBtn) return;
-
-  const alreadyEntered = sessionStorage.getItem("lumina_entered") === "1";
-  if (alreadyEntered) {
-    splash.classList.add("splash--hidden");
-    return;
-  }
-
-  const hide = () => {
-    splash.classList.add("splash--hidden");
-    sessionStorage.setItem("lumina_entered", "1");
-  };
-
-  enterBtn.addEventListener("click", hide);
-  document.addEventListener("keydown", (e) => {
-    if (splash.classList.contains("splash--hidden")) return;
-    if (e.key === "Enter" || e.key === "Escape") hide();
-  });
-}
-
-// ==========================
-// Home recent movies
+// 🎬 FILMS RECENTS
 // ==========================
 async function loadRecentMovies() {
   const container = document.getElementById("recentMovies");
   if (!container) return;
 
   const dict = I18N[getLang()] || I18N.fr;
-  container.innerHTML = `<div class="empty">…</div>`;
+  container.innerHTML = `<p>${dict["home.recent.error"]}...</p>`;
 
   try {
     const res = await fetch(`http://localhost:8001/api/recent?lang=${getLang()}`);
-    if (!res.ok) throw new Error("recent failed");
+    if (!res.ok) throw new Error();
 
     const movies = await res.json();
-
-    if (!Array.isArray(movies) || movies.length === 0) {
-      container.innerHTML = `
-        <div class="empty">
-          <div class="empty__title">${dict["home.recent.empty"]}</div>
-        </div>
-      `;
-      return;
-    }
-
     container.innerHTML = "";
 
     movies.slice(0, 6).forEach(m => {
       const card = document.createElement("a");
       card.className = "card movie-card";
       card.href = `movie.html?id=${m.id}`;
-      card.style.textDecoration = "none";
-      card.style.color = "inherit";
-
-      const poster = m.poster_path
-        ? `https://image.tmdb.org/t/p/w500${m.poster_path}`
-        : "";
 
       card.innerHTML = `
-        ${poster ? `<img class="movie-card__img" src="${poster}" alt="${m.title}" crossorigin="anonymous">` : ""}
+        <img class="movie-card__img"
+          src="https://image.tmdb.org/t/p/w500${m.poster_path || ''}">
         <div class="card__body">
-          <div class="card__title">${m.title || ""}</div>
-          <div class="card__subtitle">${m.release_date || ""}</div>
-          <div class="movie__genres">${Array.isArray(m.genres) ? m.genres.join(", ") : ""}</div>
+          <div class="card__title">${m.title}</div>
+          <div class="card__subtitle">${m.release_date}</div>
         </div>
       `;
 
       container.appendChild(card);
     });
-  } catch (err) {
-    console.error("loadRecentMovies error:", err);
-    container.innerHTML = `
-      <div class="empty">
-        <div class="empty__title">${dict["home.recent.error"]}</div>
-      </div>
-    `;
+
+  } catch {
+    container.innerHTML = `<p>${dict["home.recent.error"]}</p>`;
   }
 }
 
-// ==========================
-// Search rendering helpers
-// ==========================
+// recherche
 function renderEmptyResults() {
   const results = document.getElementById("results");
   if (!results) return;
 
-  results.innerHTML = `
-    <div class="empty">
-      <div class="empty__icon">🔎</div>
-      <div class="empty__title" data-i18n="results.emptyTitle">Lance une recherche</div>
-      <div class="muted small" data-i18n="results.emptyText">Tu verras ici des films recommandés.</div>
-    </div>
-  `;
-
-  applyLang(getLang());
+  const dict = I18N[getLang()] || I18N.fr;
+  results.innerHTML = `<div class="empty"><div class="empty__title" data-i18n="results.emptyTitle">${dict["results.emptyTitle"]}</div><div class="muted small" data-i18n="results.emptyText">${dict["results.emptyText"]}</div></div>`;
 }
 
 async function renderResults(query) {
@@ -427,186 +305,40 @@ async function renderResults(query) {
     return;
   }
 
-  results.innerHTML = '<div class="empty">…</div>';
-
   try {
-    const url = `http://localhost:8001/api/search?q=${encodeURIComponent(query)}&lang=${getLang()}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("search failed");
+    const res = await fetch(`http://localhost:8001/api/search?q=${encodeURIComponent(query)}&lang=${getLang()}`);
+    if (!res.ok) throw new Error();
+
     const movies = await res.json();
-
-    if (movies.length === 0) {
-      renderEmptyResults();
-      return;
-    }
-
     results.innerHTML = "";
-    const lang = getLang();
 
     movies.forEach(m => {
       const row = document.createElement("div");
       row.className = "movie";
-      row.innerHTML = `
-        <div class="movie__meta">
-          <a href="movie.html?id=${m.id}" class="movie__title">${m.title}</a>
-          <div class="movie__sub">${m.overview || ""}</div>
-          <div class="movie__genres">${m.genres ? m.genres.join(", ") : ""}</div>
-        </div>
-        <div class="movie__poster">
-          ${m.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${m.poster_path}" alt="${m.title}" crossorigin="anonymous">` : ""}
-        </div>
-        <div class="movie__actions">
-          <span class="badge">${m.score ?? ""}%</span>
-          <button class="btn btn--ghost btn--small rateBtn">${lang === "fr" ? "Noter" : "Rate"}</button>
-        </div>
-      `;
+
+     row.innerHTML = `
+  <div class="movie__meta">
+    <a href="movie.html?id=${m.id}" class="movie__title">${m.title}</a>
+    <div class="movie__sub">${m.overview || ""}</div>
+    <div class="movie__genres">${m.genres ? m.genres.join(", ") : ""}</div>
+  </div>
+
+  <div class="movie__poster">
+    ${m.poster_path ? `<img src="https://image.tmdb.org/t/p/w200${m.poster_path}" alt="${m.title}" crossorigin="anonymous">` : ""}
+  </div>
+`;
+
       results.appendChild(row);
     });
 
-    document.querySelectorAll(".rateBtn").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const movieEl = e.target.closest(".movie");
-        const title = movieEl.querySelector(".movie__title").textContent;
-        rateMovie(title);
-      });
-    });
-  } catch (err) {
-    console.error(err);
-    results.innerHTML = '<p class="error">' + (getLang() === "fr" ? "Erreur de recherche" : "Search error") + "</p>";
-  }
-}
-
-async function rateMovie(title) {
-  const scoreStr = prompt(getLang() === "fr" ? "Donne une note de 1 à 5 (étoiles)" : "Give a rating 1-5 (stars)");
-  if (!scoreStr) return;
-  const score = parseInt(scoreStr, 10);
-  if (!score || score < 1 || score > 5) {
-    alert(getLang() === "fr" ? "Note invalide (1-5)" : "Invalid rating (1-5)");
-    return;
-  }
-  const comment = prompt(getLang() === "fr" ? "Commentaire (optionnel)" : "Comment (optional)") || "";
-  try {
-    const res = await fetch("http://localhost:8001/api/ratings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ movie_title: title, score, comment })
-    });
-    if (!res.ok) {
-      const j = await res.json().catch(() => ({ detail: "error" }));
-      alert(j.detail || (getLang() === "fr" ? "Erreur lors de l'enregistrement" : "Save error"));
-      return;
-    }
-    const status = document.getElementById("status");
-    if (status) status.textContent = getLang() === "fr" ? "Note enregistrée." : "Rating saved.";
-    setTimeout(() => { if (status) status.textContent = ""; }, 1800);
-  } catch (err) {
-    alert(getLang() === "fr" ? "Erreur réseau" : "Network error");
+  } catch {
+    const dict = I18N[getLang()] || I18N.fr;
+    results.innerHTML = `<p>${dict["results.error"]}</p>`;
   }
 }
 
 // ==========================
-// Contact UI (about page)
-// ==========================
-function initContact() {
-  const btn = document.getElementById("contactBtn");
-  const status = document.getElementById("contactStatus");
-  if (!btn || !status) return;
-
-  btn.addEventListener("click", () => {
-    status.textContent = getLang() === "fr" ? "Message enregistré (UI)." : "Message saved (UI).";
-    setTimeout(() => (status.textContent = ""), 1800);
-  });
-}
-
-// ==========================
-// Simple client-side auth (mock)
-// ==========================
-function _getUsers() {
-  try { return JSON.parse(localStorage.getItem("lumina_users") || "[]"); }
-  catch (e) { return []; }
-}
-
-function _saveUsers(users) {
-  localStorage.setItem("lumina_users", JSON.stringify(users));
-}
-
-function _currentUser() {
-  try { return JSON.parse(localStorage.getItem("lumina_user") || "null"); }
-  catch (e) { return null; }
-}
-
-function _setCurrentUser(u) {
-  if (!u) localStorage.removeItem("lumina_user");
-  else localStorage.setItem("lumina_user", JSON.stringify(u));
-}
-
-async function _hash(pwd) {
-  const s = String(pwd || "");
-  if (window.crypto && window.crypto.subtle && window.TextEncoder) {
-    const enc = new TextEncoder();
-    const data = enc.encode(s);
-    const hash = await window.crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
-  }
-  return btoa(s);
-}
-
-async function signupUser(email, name, pwd) {
-  email = String(email || "").trim().toLowerCase();
-  name = String(name || "").trim();
-  const users = _getUsers();
-  if (users.find(u => u.email === email)) return { ok: false, msg: "exists" };
-  const hpwd = await _hash(pwd);
-  const u = { email, name, pwd: hpwd };
-  users.push(u);
-  _saveUsers(users);
-  _setCurrentUser({ email, name });
-  return { ok: true };
-}
-
-async function loginUser(email, pwd) {
-  email = String(email || "").trim().toLowerCase();
-  const users = _getUsers();
-  const h = await _hash(pwd);
-  const found = users.find(u => u.email === email && u.pwd === h);
-  if (!found) return { ok: false };
-  _setCurrentUser({ email: found.email, name: found.name });
-  return { ok: true };
-}
-
-function logoutUser() {
-  _setCurrentUser(null);
-  updateHeaderAuthUI();
-}
-
-function updateProfile(name) {
-  const cur = _currentUser();
-  if (!cur) return false;
-  const users = _getUsers();
-  const u = users.find(x => x.email === cur.email);
-  if (!u) return false;
-  u.name = name;
-  _saveUsers(users);
-  _setCurrentUser({ email: u.email, name: u.name });
-  return true;
-}
-
-function updateHeaderAuthUI() {
-  const a = document.getElementById("accountLink");
-  if (!a) return;
-  const cur = _currentUser();
-  if (cur) {
-    a.setAttribute("data-i18n", "account.title");
-    a.href = "account.html";
-  } else {
-    a.setAttribute("data-i18n", "auth.login");
-    a.href = "login.html";
-  }
-  if (typeof applyLang === "function") applyLang(getLang());
-}
-
-// ==========================
-// Init
+// INIT
 // ==========================
 document.addEventListener("DOMContentLoaded", () => {
   applyLang(getLang());
@@ -614,91 +346,62 @@ document.addEventListener("DOMContentLoaded", () => {
   const langBtn = document.getElementById("langBtn");
   if (langBtn) langBtn.addEventListener("click", toggleLang);
 
-  initSplash();
-  initContact();
-  updateHeaderAuthUI();
   loadRecentMovies();
+  loadTrendingMovies(); 
 
-  const authForm = document.getElementById("authForm");
-  if (authForm && authForm.getAttribute("data-backend") !== "true") {
-    authForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const emailEl = document.getElementById("authEmail") || {};
-      const pwdEl = document.getElementById("authPassword") || {};
-      const nameEl = document.getElementById("authName") || {};
-      const email = String(emailEl.value || "").trim();
-      const pwd = String(pwdEl.value || "");
-      const name = String(nameEl.value || "").trim();
-      const mode = authForm.getAttribute("data-mode") || "login";
-      if (mode === "signup") {
-        const res = await signupUser(email, name, pwd);
-        if (res.ok) location.href = "account.html";
-        else alert(getLang() === "fr" ? "Utilisateur existant" : "User already exists");
-      } else {
-        const res = await loginUser(email, pwd);
-        if (res.ok) location.href = "account.html";
-        else alert(getLang() === "fr" ? "Email ou mot de passe incorrect" : "Bad credentials");
+  const searchBtn = document.getElementById("searchBtn");
+  const q = document.getElementById("q");
+
+  if (searchBtn && q) {
+    renderEmptyResults();
+
+    searchBtn.addEventListener("click", () => {
+      renderResults(q.value);
+    });
+
+    q.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        searchBtn.click();
       }
     });
   }
-
-  fetch("http://localhost:8001/api/me")
-    .then(r => r.ok ? r.json() : Promise.reject(r))
-    .then(u => {
-      if (u && u.email) {
-        localStorage.setItem("lumina_user", JSON.stringify({ email: u.email, name: u.name }));
-      }
-      updateHeaderAuthUI();
-    })
-    .catch(() => {
-      localStorage.removeItem("lumina_user");
-      updateHeaderAuthUI();
-    });
-
-  const logoutBtn = document.getElementById("logoutBtn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      logoutUser();
-      location.href = "index.html";
-    });
-  }
-
-  if (document.body.classList.contains("page-account")) {
-    const cur = _currentUser();
-    const nameEl = document.getElementById("profileName");
-    const emailEl = document.getElementById("profileEmail");
-    if (cur && nameEl) nameEl.value = cur.name || "";
-    if (cur && emailEl) emailEl.textContent = cur.email || "";
-    const saveBtn = document.getElementById("saveProfile");
-    if (saveBtn) {
-      saveBtn.addEventListener("click", () => {
-        const newName = (document.getElementById("profileName") || {}).value || "";
-        if (updateProfile(newName)) alert(getLang() === "fr" ? "Profil mis à jour" : "Profile updated");
-        updateHeaderAuthUI();
-      });
-    }
-  }
-
- const searchBtn = document.getElementById("searchBtn");
-const status = document.getElementById("status");
-const q = document.getElementById("q");
-
-if (searchBtn && q) {
-  renderEmptyResults();
-
-  searchBtn.addEventListener("click", async () => {
-    await renderResults(q.value);
-    if (status) {
-      status.textContent = getLang() === "fr" ? "Résultats mis à jour." : "Results updated.";
-      setTimeout(() => (status.textContent = ""), 1800);
-    }
-  });
-
-  q.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      searchBtn.click();
-    }
-  });
-}
 });
+async function loadTrendingMovies() {
+  const container = document.getElementById("trendingMovies");
+  if (!container) return;
+
+  const dict = I18N[getLang()] || I18N.fr;
+  container.innerHTML = `<div class="empty">…</div>`;
+
+  try {
+    const res = await fetch(`http://localhost:8001/api/trending?lang=${getLang()}`);
+    if (!res.ok) throw new Error("trending failed");
+
+    const movies = await res.json();
+    container.innerHTML = "";
+
+    movies.slice(0, 6).forEach(m => {
+      const card = document.createElement("a");
+      card.className = "card movie-card";
+      card.href = `movie.html?id=${m.id}`;
+      card.style.textDecoration = "none";
+      card.style.color = "inherit";
+
+      card.innerHTML = `
+        ${m.poster_path ? `<img class="movie-card__img" src="https://image.tmdb.org/t/p/w500${m.poster_path}" alt="${m.title}">` : ""}
+        <div class="card__body">
+          <div class="card__title">${m.title || ""}</div>
+          <div class="card__subtitle">${m.release_date || ""}</div>
+          <div class="movie__genres">${Array.isArray(m.genres) ? m.genres.join(", ") : ""}</div>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+
+  } catch (err) {
+    console.error("loadTrendingMovies error:", err);
+    container.innerHTML = `<div class="empty">${dict["home.trending.error"]}</div>`;
+  }
+}

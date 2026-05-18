@@ -54,7 +54,7 @@
 </div>
 </section>
 
-<!-- 🎬 FILMS RECENTS (DYNAMIQUE) -->
+<!-- FILMS RECENTS -->
 <section class="section">
   <div class="container">
     <div class="section__head">
@@ -64,14 +64,27 @@
 
     <div id="recentMovies" class="grid grid--3"></div>
   </div>
-</section>
 
-<!-- ⭐ CLASSIQUES -->
+<!-- tendances -->
+</section>
 <section class="section">
   <div class="container">
     <div class="section__head">
-      <h2>Classiques incontournables</h2>
-      <p class="muted">Les films cultes à voir absolument.</p>
+      <h2 data-i18n="home.trending.title">Tendances du moment</h2>
+      <p class="muted" data-i18n="home.trending.subtitle">Les films populaires actuellement.</p>
+    </div>
+
+    <div id="trendingMovies" class="grid grid--3"></div>
+  </div>
+</section>
+
+
+<!-- CLASSIQUES -->
+<section class="section">
+  <div class="container">
+    <div class="section__head">
+      <h2 data-i18n="home.classics.title">Classiques incontournables</h2>
+      <p class="muted" data-i18n="home.classics.subtitle">Les films cultes à voir absolument.</p>
     </div>
 
     <div class="grid grid--3">
@@ -125,8 +138,9 @@
 </main>
 
 <footer class="footer">
-<div class="container">
-  © Lumina
+<div class="container footer__inner">
+  <span class="muted small">©<span data-i18n="footer.brand">Lumina</span> — CSC 317</span>
+  <span class="muted small" data-i18n="footer.right">Créateur français</span>
 </div>
 </footer>
 

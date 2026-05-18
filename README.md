@@ -52,35 +52,5 @@ Spider-Man: No Way Home (2021)
 
 Sofia selects The Dark Knight and rates it 4/5. This rating is then stored in her profile and can influence future recommendations.
 
----
 
-## Développement local et recherche fonctionnelle
 
-La recherche n’est plus une simple maquette : le frontend appelle désormais
-`/api/search` sur le serveur FastAPI contenu dans le dossier `server/`.
-
-### Mise en route
-
-1. Installer les dépendances :
-   ```bash
-   cd server
-   python -m pip install -r requirements.txt
-   ```
-2. (Optionnel) créez un fichier `.env` avec :
-   ```text
-   TMDB_API_KEY=your_tmdb_key_here
-   SECRET_KEY=quelquechose
-   ```
-   L’API TheMovieDB est utilisée si la clé est définie, sinon une liste statique
-de trois films s’affiche pour permettre des tests hors‑ligne.
-3. Lancer le backend :
-   ```bash
-   uvicorn main:app --reload --port 8001
-   ```
-4. Ouvrir les pages statiques (par ex. `python -m http.server 8000` depuis la
-racine du projet) et naviguer vers `search.html`. La recherche renverra des
-résultats réels si l’API est configurée.
-
-Les paramètres de formulaire (`genre`, `mood`, `person`) sont passés au
-backend mais n’influencent pas encore la logique ; ils serviront pour
-améliorer l’algorithme ultérieurement.
